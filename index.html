@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Trio | High-Scale Digital Studio</title>
+    <meta name="description"
+        content="The Power Trio — an elite collective of three digital specialists redefining web experiences.">
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        /* ============================================
+           HOME PAGE STYLES
+           ============================================ */
+
+        /* --- Hero --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 40%, rgba(99, 102, 241, 0.15), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(16, 185, 129, 0.08), transparent);
+            animation: heroPulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroPulse {
+            from {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            width: 100%;
+            padding: 10rem 0 6rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-label-line {
+            width: 40px;
+            height: 1px;
+            background: var(--accent-primary);
+        }
+
+        .hero-label-text {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title .accent-text {
+            color: var(--accent-primary);
+            -webkit-text-fill-color: var(--accent-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* SVG Art */
+        .hero-art {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        /* --- Marquee --- */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 1.5rem 0;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            animation: scroll 25s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.12);
+            text-transform: uppercase;
+            margin: 0 3rem;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* --- Stats --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Inter Tight', sans-serif;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #94A3B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* --- Projects --- */
+        .projects-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .project-card:nth-child(even) {
+            grid-template-columns: 1fr 1.4fr;
+        }
+
+        .project-card:nth-child(even) .project-visual {
+            order: 2;
+        }
+
+        .project-card:nth-child(even) .project-info {
+            order: 1;
+        }
+
+        .project-visual {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16 / 10;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-visual svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .project-year {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 0.375rem 0.875rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-num {
+            font-family: 'Inter Tight', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.04);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        /* --- Services Teaser --- */
+        .services-teaser {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 1.5rem;
+            padding: 4rem 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-item h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .service-item p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .hero-inner {
+                padding: 6rem 0 4rem;
+                gap: 3rem;
+            }
+
+            .hero-title {
+                font-size: clamp(3.5rem, 6vw, 5rem);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .stat-card:last-child {
+                grid-column: span 2;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .service-item:last-child {
+                grid-column: span 2;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner {
+                flex-direction: column;
+                text-align: center;
+                padding: 8rem 0 4rem;
+                gap: 3rem;
+            }
+
+            .hero-text {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero-label {
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-outline {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .stat-card {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-card:last-child {
+                grid-column: auto;
+            }
+
+            .project-card,
+            .project-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin-bottom: 4rem;
+            }
+
+            .project-card:nth-child(even) .project-visual {
+                order: -1;
+            }
+
+            .project-visual {
+                aspect-ratio: 4 / 3;
+            }
+
+            .project-info {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .project-tags {
+                justify-content: center;
+            }
+
+            .project-title {
+                font-size: 1.75rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-item {
+                text-align: center !important;
+            }
+
+            .service-item:last-child {
+                grid-column: auto;
+                text-align: center !important;
+            }
+
+            .projects-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .section-padding {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div id="header-inject"></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-inner">
+                <!-- Left: Text -->
+                <div class="hero-text animate-fade-in">
+                    <div class="hero-label">
+                        <span class="hero-label-line"></span>
+                        <span class="hero-label-text">The Collective</span>
+                    </div>
+
+                    <h1 class="hero-title animate-slide-up delay-100">
+                        <span class="gradient-text">Digital</span><br>
+                        <span class="accent-text">Dominance</span>
+                    </h1>
+
+                    <p class="hero-subtitle animate-slide-up delay-200">
+                        We are the Power Trio — an elite collective redefining digital experiences through architectural
+                        precision and visual mastery.
+                    </p>
+
+                    <div class="hero-buttons animate-slide-up delay-300">
+                        <a href="contact.html" class="btn-primary">Start a Project</a>
+                        <a href="#work" class="btn-outline">Explore Work</a>
+                    </div>
+                </div>
+
+                <!-- Right: Inline SVG Art -->
+                <div class="hero-visual animate-fade-in delay-200">
+                    <svg class="hero-art" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Outer ring -->
+                        <circle cx="250" cy="250" r="200" stroke="rgba(99,102,241,0.15)" stroke-width="1" />
+                        <circle cx="250" cy="250" r="160" stroke="rgba(99,102,241,0.1)" stroke-width="1" />
+                        <circle cx="250" cy="250" r="120" stroke="rgba(99,102,241,0.08)" stroke-width="1" />
+
+                        <!-- Rotating triangle -->
+                        <g transform="translate(250,250)">
+                            <polygon points="0,-140 121,70 -121,70" stroke="url(#triGrad)" stroke-width="2" fill="none">
+                                <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s"
+                                    repeatCount="indefinite" />
+                            </polygon>
+                        </g>
+
+                        <!-- Three glowing nodes -->
+                        <circle cx="250" cy="110" r="8" fill="#6366F1" opacity="0.8">
+                            <animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="371" cy="320" r="8" fill="#A5B4FC" opacity="0.6">
+                            <animate attributeName="r" values="8;11;8" dur="4s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="129" cy="320" r="8" fill="#10B981" opacity="0.6">
+                            <animate attributeName="r" values="8;11;8" dur="3.5s" repeatCount="indefinite" />
+                        </circle>
+
+                        <!-- Connecting lines -->
+                        <line x1="250" y1="110" x2="371" y2="320" stroke="rgba(99,102,241,0.15)" stroke-width="1" />
+                        <line x1="371" y1="320" x2="129" y2="320" stroke="rgba(165,180,252,0.12)" stroke-width="1" />
+                        <line x1="129" y1="320" x2="250" y2="110" stroke="rgba(16,185,129,0.12)" stroke-width="1" />
+
+                        <!-- Gradient -->
+                        <defs>
+                            <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6366F1" />
+                                <stop offset="100%" stop-color="#A5B4FC" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <span class="marquee-item">Google</span>
+            <span class="marquee-item">Spotify</span>
+            <span class="marquee-item">Nike</span>
+            <span class="marquee-item">Linear</span>
+            <span class="marquee-item">Vercel</span>
+            <span class="marquee-item">Stripe</span>
+            <span class="marquee-item">Google</span>
+            <span class="marquee-item">Spotify</span>
+            <span class="marquee-item">Nike</span>
+            <span class="marquee-item">Linear</span>
+            <span class="marquee-item">Vercel</span>
+            <span class="marquee-item">Stripe</span>
+        </div>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <section class="container section-padding">
+        <div class="stats-grid">
+            <div class="stat-card reveal">
+                <div class="stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">Elite Specialists</div>
+                <div class="stat-desc">Architect, Visualist, and Strategist — working as one unit.</div>
+            </div>
+
+            <div class="stat-card reveal delay-100">
+                <div class="stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="7" />
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                    </svg>
+                </div>
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Global Awards</div>
+                <div class="stat-desc">Recognized by Awwwards, FWA, and CSS Design Awards.</div>
+            </div>
+
+            <div class="stat-card reveal delay-200">
+                <div class="stat-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                </div>
+                <div class="stat-number">$100M+</div>
+                <div class="stat-label">Client Valuation</div>
+                <div class="stat-desc">Helping unicorns scale their valuation through superior UX.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SELECTED WORKS ===== -->
+    <section class="container section-padding" id="work">
+        <div class="projects-header">
+            <h2 class="reveal" style="font-size: 2.5rem; font-weight: 700;">Selected Works</h2>
+            <a href="work.html" class="mono reveal" style="color: var(--accent-primary); font-size: 0.875rem;">View All
+                Projects →</a>
+        </div>
+
+        <!-- Project 1: FinTech -->
+        <div class="project-card reveal">
+            <div class="project-visual">
+                <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="500" fill="#0B0E14" />
+                    <!-- Grid pattern -->
+                    <defs>
+                        <pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(99,102,241,0.08)" stroke-width="0.5" />
+                        </pattern>
+                    </defs>
+                    <rect width="800" height="500" fill="url(#grid1)" />
+                    <!-- Glow -->
+                    <circle cx="400" cy="250" r="150" fill="rgba(99,102,241,0.08)" />
+                    <circle cx="400" cy="250" r="80" fill="rgba(99,102,241,0.06)" />
+                    <!-- Abstract UI elements -->
+                    <rect x="200" y="120" width="400" height="260" rx="12" fill="rgba(255,255,255,0.03)"
+                        stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+                    <rect x="220" y="150" width="140" height="8" rx="4" fill="rgba(99,102,241,0.3)" />
+                    <rect x="220" y="175" width="200" height="6" rx="3" fill="rgba(255,255,255,0.06)" />
+                    <rect x="220" y="195" width="160" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                    <rect x="220" y="230" width="360" height="120" rx="8" fill="rgba(255,255,255,0.02)"
+                        stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                    <!-- Chart bars -->
+                    <rect x="240" y="310" width="30" height="30" rx="2" fill="rgba(99,102,241,0.4)" />
+                    <rect x="285" y="280" width="30" height="60" rx="2" fill="rgba(99,102,241,0.5)" />
+                    <rect x="330" y="260" width="30" height="80" rx="2" fill="rgba(99,102,241,0.6)" />
+                    <rect x="375" y="290" width="30" height="50" rx="2" fill="rgba(99,102,241,0.45)" />
+                    <rect x="420" y="270" width="30" height="70" rx="2" fill="rgba(99,102,241,0.55)" />
+                    <rect x="465" y="250" width="30" height="90" rx="2" fill="rgba(99,102,241,0.7)" />
+                    <rect x="510" y="275" width="30" height="65" rx="2" fill="rgba(99,102,241,0.5)" />
+                </svg>
+                <span class="project-year">2024</span>
+            </div>
+            <div class="project-info">
+                <div class="project-num">01</div>
+                <h3 class="project-title">FinTech Revolution</h3>
+                <div class="project-tags">
+                    <span class="badge">Architecture</span>
+                    <span class="badge">Security</span>
+                </div>
+                <p class="project-desc">Reimagining the banking interface for the next generation. We reduced friction
+                    by 40% and improved mobile retention across the platform.</p>
+                <a href="case-study.html" class="btn-primary" style="font-size: 0.875rem; padding: 0.75rem 1.5rem;">View
+                    Case Study</a>
+            </div>
+        </div>
+
+        <!-- Project 2: Fashion -->
+        <div class="project-card reveal">
+            <div class="project-visual">
+                <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="500" fill="#12101A" />
+                    <!-- Conic gradient sim -->
+                    <circle cx="400" cy="250" r="200" fill="none" stroke="rgba(165,180,252,0.08)" stroke-width="100" />
+                    <circle cx="400" cy="250" r="100" fill="rgba(165,180,252,0.04)" />
+                    <!-- Abstract fashion layout -->
+                    <rect x="150" y="80" width="220" height="340" rx="12" fill="rgba(255,255,255,0.03)"
+                        stroke="rgba(165,180,252,0.1)" stroke-width="1" />
+                    <rect x="170" y="100" width="180" height="200" rx="8" fill="rgba(165,180,252,0.05)" />
+                    <rect x="170" y="316" width="100" height="8" rx="4" fill="rgba(165,180,252,0.3)" />
+                    <rect x="170" y="336" width="140" height="6" rx="3" fill="rgba(255,255,255,0.06)" />
+                    <rect x="170" y="354" width="80" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                    <rect x="430" y="80" width="220" height="340" rx="12" fill="rgba(255,255,255,0.03)"
+                        stroke="rgba(165,180,252,0.1)" stroke-width="1" />
+                    <rect x="450" y="100" width="180" height="200" rx="8" fill="rgba(165,180,252,0.04)" />
+                    <rect x="450" y="316" width="100" height="8" rx="4" fill="rgba(165,180,252,0.2)" />
+                    <rect x="450" y="336" width="140" height="6" rx="3" fill="rgba(255,255,255,0.06)" />
+                    <rect x="450" y="354" width="80" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                </svg>
+                <span class="project-year">2025</span>
+            </div>
+            <div class="project-info">
+                <div class="project-num">02</div>
+                <h3 class="project-title">Velvet & Void</h3>
+                <div class="project-tags">
+                    <span class="badge">E-Commerce</span>
+                    <span class="badge">Motion</span>
+                </div>
+                <p class="project-desc">A high-fashion e-commerce experience driven by fluid state transitions. The
+                    ultimate digital catwalk with immersive product storytelling.</p>
+                <a href="case-study-velvet.html" class="btn-primary"
+                    style="font-size: 0.875rem; padding: 0.75rem 1.5rem;">View Case Study</a>
+            </div>
+        </div>
+
+        <!-- Project 3: SaaS -->
+        <div class="project-card reveal">
+            <div class="project-visual">
+                <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="500" fill="#0B1410" />
+                    <!-- Grid -->
+                    <defs>
+                        <pattern id="grid3" width="50" height="50" patternUnits="userSpaceOnUse">
+                            <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(16,185,129,0.06)" stroke-width="0.5" />
+                        </pattern>
+                    </defs>
+                    <rect width="800" height="500" fill="url(#grid3)" />
+                    <circle cx="400" cy="250" r="120" fill="rgba(16,185,129,0.06)" />
+                    <!-- Dashboard sim -->
+                    <rect x="100" y="60" width="600" height="380" rx="12" fill="rgba(255,255,255,0.02)"
+                        stroke="rgba(16,185,129,0.08)" stroke-width="1" />
+                    <!-- Sidebar -->
+                    <rect x="100" y="60" width="160" height="380" rx="12" fill="rgba(16,185,129,0.03)" />
+                    <rect x="120" y="100" width="100" height="8" rx="4" fill="rgba(16,185,129,0.2)" />
+                    <rect x="120" y="130" width="120" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                    <rect x="120" y="155" width="120" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                    <rect x="120" y="180" width="120" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                    <rect x="120" y="205" width="100" height="6" rx="3" fill="rgba(16,185,129,0.15)" />
+                    <!-- Main area -->
+                    <rect x="280" y="90" width="200" height="100" rx="8" fill="rgba(255,255,255,0.02)"
+                        stroke="rgba(16,185,129,0.06)" stroke-width="1" />
+                    <rect x="500" y="90" width="180" height="100" rx="8" fill="rgba(255,255,255,0.02)"
+                        stroke="rgba(16,185,129,0.06)" stroke-width="1" />
+                    <!-- Line chart -->
+                    <polyline points="300,380 340,340 380,355 420,300 460,310 500,270 540,285 580,240 620,250 660,200"
+                        fill="none" stroke="rgba(16,185,129,0.5)" stroke-width="2" />
+                    <circle cx="660" cy="200" r="4" fill="#10B981" opacity="0.8" />
+                </svg>
+                <span class="project-year">2025</span>
+            </div>
+            <div class="project-info">
+                <div class="project-num">03</div>
+                <h3 class="project-title">Nexus Protocol</h3>
+                <div class="project-tags">
+                    <span class="badge">SaaS</span>
+                    <span class="badge">Dashboard</span>
+                </div>
+                <p class="project-desc">Complex data visualization made simple. We built a real-time analytics engine
+                    with an interface that processes millions of data rows effortlessly.</p>
+                <a href="case-study-nexus.html" class="btn-primary"
+                    style="font-size: 0.875rem; padding: 0.75rem 1.5rem;">View Case Study</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES TEASER ===== -->
+    <section class="container section-padding">
+        <div class="services-teaser text-center">
+            <span class="badge mb-4">Our Expertise</span>
+            <h2 style="font-size: 2.25rem; font-weight: 700; max-width: 550px; margin: 1rem auto 0;" class="reveal">
+                We help brands scale through design & technology
+            </h2>
+
+            <div class="services-grid">
+                <div class="service-item reveal delay-100" style="text-align: left;">
+                    <h4 style="color: var(--accent-secondary);">Design</h4>
+                    <p>UI/UX, Motion, 3D, Design Systems</p>
+                </div>
+                <div class="service-item reveal delay-200" style="text-align: left;">
+                    <h4 style="color: var(--accent-primary);">Development</h4>
+                    <p>Frontend, Backend, WebGL, Performance</p>
+                </div>
+                <div class="service-item reveal delay-300" style="text-align: left;">
+                    <h4 style="color: var(--success);">Strategy</h4>
+                    <p>Conversion, Brand, Analytics, Growth</p>
+                </div>
+            </div>
+
+            <a href="services.html" class="btn-primary mt-8" style="margin-top: 2.5rem;">Explore Services</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-inject"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

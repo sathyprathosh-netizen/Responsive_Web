@@ -1,0 +1,105 @@
+<style>
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 4rem;
+    }
+
+    .footer-brand {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .footer-minds {
+        display: flex;
+        gap: 4rem;
+        flex: 2;
+        flex-wrap: wrap;
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-minds {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2.5rem;
+            flex: 1;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+    }
+</style>
+
+<footer class="container section-padding" style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem;">
+    <div class="footer-content">
+        <!-- Brand -->
+        <div class="footer-brand">
+            <svg width="60" height="60" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+                style="margin-bottom: 2rem;">
+                <path d="M20 0L40 40H0L20 0Z" fill="#6366F1" />
+            </svg>
+            <h3 style="margin-bottom: 1rem;">The Power Trio</h3>
+            <p>Digital dominance through collective mastery.</p>
+        </div>
+
+        <!-- Social Columns (The Minds) -->
+        <div class="footer-minds">
+            <div>
+                <h4 class="mono" style="margin-bottom: 1rem; color: var(--accent-secondary);">Architect</h4>
+                <ul style="list-style: none; line-height: 2;">
+                    <li><a href="#" class="hover-link">GitHub</a></li>
+                    <li><a href="#" class="hover-link">Twitter</a></li>
+                    <li><a href="#" class="hover-link">LinkedIn</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono" style="margin-bottom: 1rem; color: var(--accent-secondary);">Visualist</h4>
+                <ul style="list-style: none; line-height: 2;">
+                    <li><a href="#" class="hover-link">Dribbble</a></li>
+                    <li><a href="#" class="hover-link">Behance</a></li>
+                    <li><a href="#" class="hover-link">Instagram</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono" style="margin-bottom: 1rem; color: var(--accent-secondary);">Strategist</h4>
+                <ul style="list-style: none; line-height: 2;">
+                    <li><a href="#" class="hover-link">Medium</a></li>
+                    <li><a href="#" class="hover-link">Substack</a></li>
+                    <li><a href="#" class="hover-link">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p class="mono" style="font-size: 0.75rem; opacity: 0.5;">© 2026 Power Trio Studio. All rights reserved.</p>
+        <p class="mono" style="font-size: 0.75rem; opacity: 0.5;">UTC: <span id="utc-time"></span></p>
+    </div>
+</footer>

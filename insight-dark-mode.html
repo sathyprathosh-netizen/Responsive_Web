@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Done Right | Power Trio</title>
+    <meta name="description"
+        content="Beyond inverting colors — building accessible dark themes with CSS custom properties.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/article.css">
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="article-hero">
+        <div class="article-hero-bg">
+            <svg viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="960" height="800" fill="#F0F2F5" />
+                <rect x="960" y="0" width="960" height="800" fill="#0B0E14" />
+                <line x1="960" y1="0" x2="960" y2="800" stroke="rgba(99,102,241,.15)" stroke-width="2"
+                    stroke-dasharray="8 8" />
+            </svg>
+        </div>
+        <div class="article-hero-overlay"></div>
+        <div class="article-container article-hero-content">
+            <a href="insights.html" class="back-link">← Back to Insights</a>
+            <div class="article-chip-row">
+                <span class="chip chip-design">Design</span>
+                <span class="mono" style="opacity: 0.5;">June 18, 2026</span>
+            </div>
+            <h1>Dark Mode Done Right</h1>
+            <div class="article-meta">
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M20 21a8 8 0 0 0-16 0" />
+                    </svg>
+                    <span>Power Trio Editorial</span>
+                </div>
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>6 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="article-container">
+        <article class="article-body">
+            <p class="reveal">Dark mode isn't just "invert everything." Done poorly, it causes eye strain, hides
+                content, and breaks
+                brand identity. Done right, it becomes a feature users love and actively choose. Here's how we approach
+                dark themes across all our projects.</p>
+
+            <h2 class="reveal">Why Not Just Invert?</h2>
+            <p class="reveal">The naive approach — <code>filter: invert(1)</code> — flips every color. Images become
+                negatives.
+                Carefully chosen brand colors get destroyed. Shadows that made sense on light backgrounds look wrong on
+                dark ones.</p>
+            <p class="reveal">True dark mode requires rethinking your entire color system from the ground up, not
+                layering a filter on
+                top of an existing design.</p>
+
+            <blockquote class="accent-indigo reveal">
+                <p>Dark mode is a separate design language, not a CSS toggle.</p>
+            </blockquote>
+
+            <h2>The Color Architecture</h2>
+            <p>Our dark mode system uses three layers of CSS custom properties:</p>
+
+            <pre><code>:root {
+  /* Raw palette — never used directly */
+  --gray-50: #F8FAFC;
+  --gray-900: #0F172A;
+  --indigo-500: #6366F1;
+
+  /* Semantic tokens — the bridge */
+  --color-bg-primary: var(--gray-50);
+  --color-text-primary: var(--gray-900);
+  --color-accent: var(--indigo-500);
+}
+
+[data-theme="dark"] {
+  /* Only semantic tokens change */
+  --color-bg-primary: var(--gray-900);
+  --color-text-primary: var(--gray-50);
+  --color-accent: var(--indigo-400);
+}</code></pre>
+
+            <p>Components reference only semantic tokens, never raw palette values. This means switching themes requires
+                zero component changes.</p>
+
+            <h2>Elevation, Not Lightness</h2>
+            <p>In light mode, higher-elevation surfaces are lighter (white cards on gray backgrounds). In dark mode, the
+                opposite is true — higher-elevation surfaces are <em>lighter</em> shades of dark. Material Design calls
+                this "elevation overlay."</p>
+
+            <div class="article-visual reveal">
+                <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="380" height="300" fill="#F0F2F5" />
+                    <rect x="380" y="0" width="380" height="300" fill="#0B0E14" />
+                    <!-- Visual Divider -->
+                    <line x1="380" y1="0" x2="380" y2="300" stroke="rgba(99,102,241,0.2)" stroke-width="2"
+                        stroke-dasharray="8 8" />
+
+                    <!-- Content Comparison -->
+                    <g transform="translate(60, 60)">
+                        <rect width="260" height="180" rx="15" fill="white" stroke="#E2E8F0" stroke-width="1" />
+                        <rect x="25" y="25" width="80" height="8" rx="4" fill="#E2E8F0" />
+                        <rect x="25" y="120" width="100" height="30" rx="8" fill="#6366F1" />
+                    </g>
+                    <g transform="translate(440, 60)">
+                        <rect width="260" height="180" rx="15" fill="#151921" stroke="rgba(255,255,255,0.05)"
+                            stroke-width="1" />
+                        <rect x="25" y="25" width="80" height="8" rx="4" fill="rgba(255,255,255,0.1)" />
+                        <rect x="25" y="120" width="100" height="30" rx="8" fill="rgba(99,102,241,0.4)"
+                            stroke="rgba(99,102,241,0.2)" stroke-width="1" />
+                    </g>
+                </svg>
+            </div>
+
+            <p class="reveal">Each elevation step adds approximately 5% white overlay to the base background. This
+                creates a natural
+                visual hierarchy without using shadows (which are barely visible on dark backgrounds).</p>
+
+            <h2>Contrast Ratios</h2>
+            <p>WCAG requires a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text. In dark mode,
+                this is harder to achieve because our instinct is to use full white (<code>#FFFFFF</code>) text — but
+                that creates excessive contrast that causes eye strain.</p>
+            <p>Our rules:</p>
+            <ul>
+                <li><strong>Primary text:</strong> <code>#F1F5F9</code> (not pure white) — contrast 14:1</li>
+                <li><strong>Secondary text:</strong> <code>#94A3B8</code> — contrast 5.5:1</li>
+                <li><strong>Tertiary/disabled:</strong> <code>#64748B</code> — contrast 3.2:1 (large text only)</li>
+                <li><strong>Avoid pure white:</strong> <code>#FFFFFF</code> is too harsh on dark backgrounds</li>
+            </ul>
+
+            <h2>Respecting User Preference</h2>
+            <p>Always default to the system preference using <code>prefers-color-scheme</code>, then allow manual
+                override with a toggle that persists via <code>localStorage</code>:</p>
+
+            <pre><code>const getTheme = () => {
+  const stored = localStorage.getItem('theme');
+  if (stored) return stored;
+  return window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches ? 'dark' : 'light';
+};
+
+document.documentElement.setAttribute(
+  'data-theme', getTheme()
+);</code></pre>
+
+            <p>The critical detail: this script must run in the <code>&lt;head&gt;</code> before any content renders to
+                prevent a "flash of wrong theme" (FOWT).</p>
+
+            <blockquote>
+                <p>The best dark mode experience is one the user never has to think about.</p>
+            </blockquote>
+
+            <div class="article-tags">
+                <span class="tag">Dark Mode</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Accessibility</span>
+                <span class="tag">Theming</span>
+                <span class="tag">Custom Properties</span>
+            </div>
+
+            <nav class="article-nav">
+                <a href="insight-rust-migration.html">
+                    <div class="nav-label">← Previous</div>
+                    <div class="nav-title">Why We Switched to Rust</div>
+                </a>
+                <a href="insight-design-systems.html" style="text-align:right">
+                    <div class="nav-label">Next →</div>
+                    <div class="nav-title">Building Design Systems</div>
+                </a>
+            </nav>
+        </article>
+    </div>
+
+    <div id="footer-inject"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

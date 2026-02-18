@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Minds | Power Trio</title>
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        .minds-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            height: 80vh;
+        }
+
+        .mind-column {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+            overflow: hidden;
+        }
+
+        .mind-column:last-child {
+            border-right: none;
+        }
+
+        .mind-column:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .avatar-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Magnetic Effect simulated via hover scale for now, advanced JS could follow cursor */
+        .mind-column:hover .avatar-container {
+            transform: scale(1.1);
+            border-color: var(--accent-primary);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: var(--transition-smooth);
+        }
+
+        .mind-column:hover .avatar-img {
+            filter: grayscale(0%);
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+            z-index: 5;
+        }
+
+        .status-online {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        .status-busy {
+            background: #EF4444;
+        }
+
+        .status-oatmeal {
+            background: #F59E0B;
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .minds-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .mind-column {
+                padding: 4rem 1rem;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="container section-padding">
+        <h1 class="text-center animate-slide-up mb-5">The Trio</h1>
+    </section>
+
+    <div class="minds-grid">
+        <!-- Member 1 -->
+        <div class="mind-column reveal delay-100">
+            <div class="avatar-container cursor-hover">
+                <img src="https://via.placeholder.com/200" alt="Alex - The Architect" class="avatar-img">
+                <div class="status-indicator status-online" title="Online"></div>
+            </div>
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Alex</h2>
+            <p class="mono" style="color: var(--accent-primary);">The Architect</p>
+            <p style="text-align: center; max-width: 250px; font-size: 0.9rem; margin-top: 1rem; opacity: 0.7;">
+                Systems thinker. Pixel perfectionist. Builds the impossible.
+            </p>
+            <div class="flex gap-sm mt-4">
+                <a href="#" class="mono hover-link">GH</a>
+                <a href="#" class="mono hover-link">TW</a>
+            </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="mind-column reveal delay-200">
+            <div class="avatar-container cursor-hover">
+                <img src="https://via.placeholder.com/200" alt="Sarah - The Visualist" class="avatar-img">
+                <div class="status-indicator status-busy" title="Busy"></div>
+            </div>
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Sarah</h2>
+            <p class="mono" style="color: var(--accent-primary);">The Visualist</p>
+            <p style="text-align: center; max-width: 250px; font-size: 0.9rem; margin-top: 1rem; opacity: 0.7;">
+                Design alchemist. Motion master. Finds beauty in chaos.
+            </p>
+            <div class="flex gap-sm mt-4">
+                <a href="#" class="mono hover-link">DB</a>
+                <a href="#" class="mono hover-link">IG</a>
+            </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="mind-column reveal delay-300">
+            <div class="avatar-container cursor-hover">
+                <img src="https://via.placeholder.com/200" alt="Mike - The Strategist" class="avatar-img">
+                <div class="status-indicator status-oatmeal" title="Oatmeal Break"></div>
+            </div>
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Mike</h2>
+            <p class="mono" style="color: var(--accent-primary);">The Strategist</p>
+            <p style="text-align: center; max-width: 250px; font-size: 0.9rem; margin-top: 1rem; opacity: 0.7;">
+                Growth hacker. Storyteller. Connects the dots.
+            </p>
+            <div class="flex gap-sm mt-4">
+                <a href="#" class="mono hover-link">LI</a>
+                <a href="#" class="mono hover-link">MD</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-inject"></div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Design Systems That Actually Scale | Power Trio</title>
+    <meta name="description" content="Creating component libraries that don't crumble at 500+ components.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/article.css">
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="article-hero">
+        <div class="article-hero-bg">
+            <svg viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="800" fill="#0D0F18" />
+                <defs>
+                    <pattern id="ahg" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(99,102,241,.03)" stroke-width=".5" />
+                    </pattern>
+                </defs>
+                <rect width="1920" height="800" fill="url(#ahg)" />
+                <circle cx="960" cy="400" r="250" fill="rgba(99,102,241,.06)" />
+            </svg>
+        </div>
+        <div class="article-hero-overlay"></div>
+        <div class="article-container article-hero-content">
+            <a href="insights.html" class="back-link">← Back to Insights</a>
+            <div class="article-chip-row">
+                <span class="chip chip-design">Design</span>
+                <span class="mono" style="opacity: 0.5;">January 15, 2026</span>
+            </div>
+            <h1>Building Design Systems That Actually Scale</h1>
+            <div class="article-meta">
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M20 21a8 8 0 0 0-16 0" />
+                    </svg>
+                    <span>Power Trio Editorial</span>
+                </div>
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>12 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="article-container">
+        <article class="article-body">
+            <p class="reveal">Every agency says they have a design system. Most have a messy Figma file and a prayer.
+                After maintaining
+                systems across 20+ projects and 500+ components, we've learned what actually works — and what quietly
+                falls apart at scale.</p>
+
+            <h2 class="reveal">Why Most Design Systems Fail</h2>
+            <p class="reveal">The typical failure pattern is predictable: a team excitedly builds a beautiful component
+                library, ships
+                it, and then watches it slowly decay. Components diverge. Designers create one-offs. Developers
+                copy-paste and modify. Within 6 months, the "system" is just a suggestion.</p>
+            <p class="reveal">The root cause isn't laziness — it's architecture. Most systems are built as static
+                libraries when they
+                should be built as living products.</p>
+
+            <blockquote class="reveal">
+                <p>A design system isn't a project with a finish line. It's a product with users, roadmaps, and
+                    versioning.</p>
+            </blockquote>
+
+            <h2 class="reveal">The Three Pillars of Scale</h2>
+            <p class="reveal">To build a system that lasts, we focus on three core areas: Tokens, Governance, and
+                Variants.</p>
+
+            <div class="feature-grid reveal">
+                <div class="feature-item">
+                    <h4>Token Architecture</h4>
+                    <p>Building from the atoms up ensures that every component is linked to a single source of truth.
+                    </p>
+                </div>
+                <div class="feature-item">
+                    <h4>Component Governance</h4>
+                    <p>Process over policing — how we allow teams to contribute without breaking the system.</p>
+                </div>
+            </div>
+
+            <h2 class="reveal">Token-First Architecture</h2>
+            <p class="reveal">Everything begins with tokens — not components. Tokens are the atoms: colors, spacing,
+                typography scales,
+                shadows, border radii. When you change a token, every component that uses it updates automatically.</p>
+
+            <div class="article-visual">
+                <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="760" height="300" fill="#0B0E14" />
+                    <rect x="30" y="30" width="200" height="240" rx="12" fill="rgba(255,255,255,.02)"
+                        stroke="rgba(99,102,241,.08)" stroke-width="1" />
+                    <rect x="50" y="55" width="80" height="8" rx="4" fill="rgba(99,102,241,.3)" />
+                    <circle cx="70" cy="95" r="14" fill="rgba(99,102,241,.2)" />
+                    <circle cx="105" cy="95" r="14" fill="rgba(16,185,129,.2)" />
+                    <circle cx="140" cy="95" r="14" fill="rgba(236,72,153,.2)" />
+                    <circle cx="175" cy="95" r="14" fill="rgba(245,158,11,.2)" />
+                    <rect x="50" y="130" width="160" height="6" rx="3" fill="rgba(255,255,255,.04)" />
+                    <rect x="50" y="148" width="120" height="6" rx="3" fill="rgba(255,255,255,.03)" />
+                    <rect x="50" y="170" width="60" height="20" rx="4" fill="rgba(99,102,241,.1)"
+                        stroke="rgba(99,102,241,.15)" stroke-width="1" />
+                    <rect x="120" y="170" width="60" height="20" rx="4" fill="rgba(99,102,241,.06)"
+                        stroke="rgba(99,102,241,.1)" stroke-width="1" />
+                    <line x1="260" y1="150" x2="290" y2="150" stroke="rgba(99,102,241,.3)" stroke-width="2"
+                        marker-end="url(#arrowhead)" />
+                    <defs>
+                        <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+                            <polygon points="0 0, 6 2, 0 4" fill="rgba(99,102,241,.5)" />
+                        </marker>
+                    </defs>
+                    <rect x="310" y="30" width="200" height="240" rx="12" fill="rgba(255,255,255,.02)"
+                        stroke="rgba(99,102,241,.08)" stroke-width="1" />
+                    <rect x="330" y="55" width="80" height="8" rx="4" fill="rgba(99,102,241,.3)" />
+                    <rect x="330" y="80" width="160" height="40" rx="8" fill="rgba(99,102,241,.04)"
+                        stroke="rgba(99,102,241,.08)" stroke-width="1" />
+                    <rect x="330" y="135" width="160" height="30" rx="15" fill="rgba(99,102,241,.1)"
+                        stroke="rgba(99,102,241,.15)" stroke-width="1" />
+                    <rect x="330" y="180" width="160" height="70" rx="8" fill="rgba(255,255,255,.01)"
+                        stroke="rgba(255,255,255,.04)" stroke-width="1" />
+                    <line x1="540" y1="150" x2="570" y2="150" stroke="rgba(99,102,241,.3)" stroke-width="2"
+                        marker-end="url(#arrowhead)" />
+                    <rect x="590" y="30" width="140" height="240" rx="12" fill="rgba(255,255,255,.02)"
+                        stroke="rgba(99,102,241,.08)" stroke-width="1" />
+                    <rect x="610" y="55" width="80" height="8" rx="4" fill="rgba(99,102,241,.3)" />
+                    <rect x="600" y="80" width="120" height="170" rx="6" fill="rgba(99,102,241,.02)"
+                        stroke="rgba(99,102,241,.05)" stroke-width="1" />
+                </svg>
+            </div>
+
+            <div class="article-visual reveal">
+                <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="800" height="450" fill="#0B0E14" />
+                    <defs>
+                        <pattern id="ds-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(99,102,241,0.05)" stroke-width="0.5" />
+                        </pattern>
+                    </defs>
+                    <rect width="800" height="450" fill="url(#ds-pattern)" />
+                    <!-- System Architecture Visualization -->
+                    <g transform="translate(100, 75)">
+                        <rect width="600" height="300" rx="20" fill="rgba(255,255,255,0.02)"
+                            stroke="rgba(99,102,241,0.2)" stroke-width="2" />
+                        <rect x="30" y="30" width="120" height="10" rx="5" fill="rgba(99,102,241,0.4)" />
+                        <g transform="translate(30, 70)">
+                            <rect width="160" height="40" rx="8" fill="rgba(99,102,241,0.1)"
+                                stroke="rgba(99,102,241,0.3)" />
+                            <rect x="230" y="0" width="160" height="40" rx="8" fill="rgba(255,255,255,0.05)"
+                                stroke="rgba(255,255,255,0.1)" />
+                            <rect x="420" y="0" width="100" height="40" rx="20" fill="rgba(16,185,129,0.2)"
+                                stroke="rgba(16,185,129,0.4)" />
+                        </g>
+                        <rect x="30" y="140" width="540" height="130" rx="10" fill="rgba(255,255,255,0.01)"
+                            stroke="rgba(255,255,255,0.05)" />
+                    </g>
+                </svg>
+            </div>
+
+            <p class="reveal">Our token structure follows three tiers:</p>
+            <ul class="reveal">
+                <li><strong>Global tokens:</strong> Raw values — <code>blue-500: #6366F1</code></li>
+                <li><strong>Semantic tokens:</strong> Intent-based aliases — <code>color-primary: blue-500</code></li>
+                <li><strong>Component tokens:</strong> Scoped overrides — <code>button-bg: color-primary</code></li>
+            </ul>
+
+            <h2 class="reveal">Variant Strategy</h2>
+            <p class="reveal">Most teams create too many variants too early. We follow the "Rule of Three": a variant
+                only gets
+                formalized into the system after it appears in three different projects. Before that, it lives as a
+                local override.</p>
+            <p class="reveal">This prevents bloat while still allowing teams to innovate. When a pattern proves useful
+                across contexts,
+                it graduates into the shared library with full documentation and test coverage.</p>
+
+            <h3>Naming Conventions</h3>
+            <p>We use a strict BEM-inspired naming convention that maps directly to Figma layers:</p>
+            <pre><code>component/variant/state
+button/primary/hover
+card/elevated/active
+input/outlined/error</code></pre>
+
+            <h2>Governance Without Bureaucracy</h2>
+            <p>The biggest killer of design systems is process overhead. Nobody wants to file a ticket just to add a
+                border radius variant. Our approach:</p>
+            <ul>
+                <li><strong>Weekly sync:</strong> 15-minute review of proposed changes</li>
+                <li><strong>Auto-generated changelog:</strong> Every token/component change is documented automatically
+                </li>
+                <li><strong>Visual regression tests:</strong> Chromatic catches unintended visual changes</li>
+                <li><strong>Deprecation warnings:</strong> Old components get 2-sprint sunset periods with migration
+                    guides</li>
+            </ul>
+
+            <blockquote>
+                <p>The best governance feels invisible. Teams should feel empowered, not policed.</p>
+            </blockquote>
+
+            <h2>Measuring Success</h2>
+            <p>We track system adoption through concrete metrics: component coverage (what % of UI uses system
+                components), time-to-build (how fast designers and devs ship new screens), and visual consistency scores
+                across products.</p>
+            <p>After implementing this approach, our average project setup time dropped from 3 weeks to 2 days.
+                Designers spend less time recreating components and more time solving user problems.</p>
+
+            <div class="article-tags">
+                <span class="tag">Design Systems</span>
+                <span class="tag">Component Library</span>
+                <span class="tag">Figma</span>
+                <span class="tag">Tokens</span>
+                <span class="tag">Scalability</span>
+            </div>
+
+            <nav class="article-nav">
+                <a href="insight-dark-mode.html">
+                    <div class="nav-label">← Previous</div>
+                    <div class="nav-title">Dark Mode Done Right</div>
+                </a>
+                <a href="insight-flat-design.html" style="text-align:right">
+                    <div class="nav-label">Next →</div>
+                    <div class="nav-title">The Death of Flat Design</div>
+                </a>
+            </nav>
+        </article>
+    </div>
+
+    <div id="footer-inject"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

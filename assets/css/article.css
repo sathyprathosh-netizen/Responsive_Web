@@ -1,0 +1,441 @@
+/* ============================================
+   INSIGHT ARTICLE PAGE STYLES
+   Shared across all insight-*.html pages
+   ============================================ */
+
+/* --- Container Synchronization --- */
+/* Strictly matching base.css .container */
+.article-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+@media (max-width: 1024px) {
+    .article-container {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .article-container {
+        padding: 0 1.25rem;
+    }
+}
+
+/* --- Hero --- */
+.article-hero {
+    padding: 10rem 0 6rem;
+    /* Consistent with main insights page for seamless transition */
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+.article-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+.article-hero-bg svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            var(--bg-primary) 0%,
+            rgba(11, 14, 20, 0.4) 50%,
+            var(--bg-primary) 100%);
+    z-index: 1;
+}
+
+.article-hero-content {
+    position: relative;
+    z-index: 2;
+    /* Ensuring this aligns perfectly with the LOGO in the header */
+}
+
+/* --- Title & Typography --- */
+.article-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+    max-width: 900px;
+    color: var(--text-primary);
+    text-wrap: balance;
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    .article-hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+
+    .article-hero h1 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .article-chip-row {
+        justify-content: center;
+    }
+
+    .back-link {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* --- Back Link --- */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    margin-bottom: 3rem;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.back-link:hover {
+    color: var(--text-primary);
+    transform: translateX(-5px);
+}
+
+/* --- Meta --- */
+.article-meta {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.article-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.article-chip-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Article Content Structure --- */
+.article-content-wrapper {
+    position: relative;
+    background: var(--bg-primary);
+}
+
+/* Align content block to match logo baseline (2rem) */
+.article-body {
+    padding: 6rem 0 8rem;
+    max-width: 800px;
+    /* Optimal reading width */
+    margin-left: 0;
+    position: relative;
+}
+
+.article-body h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 4rem 0 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.article-body h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 3rem 0 1.25rem;
+    color: var(--text-primary);
+}
+
+.article-body p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.article-body ul,
+.article-body ol {
+    margin: 1.5rem 0 2rem 1.25rem;
+    color: var(--text-secondary);
+}
+
+.article-body li {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+}
+
+/* --- Visual Elements --- */
+.article-visual {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 4rem 0;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    aspect-ratio: 16 / 9;
+}
+
+.article-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.article-visual:hover img {
+    transform: scale(1.05);
+}
+
+.article-visual svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Feature Grid inside Article */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.feature-item {
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1.25rem;
+    transition: var(--transition-smooth);
+}
+
+.feature-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--accent-primary);
+    transform: translateY(-5px);
+}
+
+.feature-item h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.feature-item p {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Blockquote --- */
+.article-body blockquote {
+    border-left: 4px solid var(--accent-primary);
+    padding: 2rem 0 2rem 2.5rem;
+    /* Left padding stays for the border, but we align text closer */
+    margin: 4rem 0;
+    background: rgba(99, 102, 241, 0.03);
+    border-radius: 0 1rem 1rem 0;
+}
+
+.article-body blockquote p {
+    color: var(--text-primary);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.article-body blockquote.accent-green {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.03);
+}
+
+.article-body blockquote.accent-amber {
+    border-color: #F59E0B;
+    background: rgba(245, 158, 11, 0.03);
+}
+
+/* --- Code Blocks --- */
+.article-body pre {
+    background: #0D0F18;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2.5rem 0;
+    overflow-x: auto;
+}
+
+.article-body code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--accent-secondary);
+}
+
+/* --- Tags --- */
+.article-tags {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 4rem 0 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 4rem;
+}
+
+.tag {
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    transition: all 0.3s;
+}
+
+.tag:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+/* --- Navigation --- */
+.article-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 4rem 0;
+    margin-top: 2rem;
+}
+
+.article-nav a {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    transition: all 0.4s var(--transition-smooth);
+}
+
+.article-nav a:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+}
+
+.nav-label {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+}
+
+.nav-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* --- Chips --- */
+.chip {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.chip-design {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818CF8;
+}
+
+.chip-engineering {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10B981;
+}
+
+.chip-strategy {
+    background: rgba(245, 158, 11, 0.15);
+    color: #F59E0B;
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 1024px) {
+    .article-hero h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .article-hero {
+        padding: 10rem 0 4rem;
+    }
+
+    .article-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .article-meta {
+        gap: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .article-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .article-body {
+        padding: 4rem 0 6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .article-container {
+        padding: 0 1.5rem;
+    }
+
+    .article-body h2 {
+        font-size: 1.75rem;
+    }
+}

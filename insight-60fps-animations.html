@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>60fps Animations on Mobile | Power Trio</title>
+    <meta name="description"
+        content="Optimizing requestAnimationFrame, composite layers, and GPU acceleration for smooth motion.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/article.css">
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="article-hero">
+        <div class="article-hero-bg">
+            <svg viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="800" fill="#0B1410" />
+                <defs>
+                    <pattern id="ahg3" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(16,185,129,.03)" stroke-width=".5" />
+                    </pattern>
+                </defs>
+                <rect width="1920" height="800" fill="url(#ahg3)" />
+                <path d="M 200,500 Q 400,350 600,500 Q 800,650 1000,500 Q 1200,350 1400,500 Q 1600,650 1800,500"
+                    fill="none" stroke="rgba(16,185,129,.15)" stroke-width="3" />
+            </svg>
+        </div>
+        <div class="article-hero-overlay"></div>
+        <div class="article-container article-hero-content">
+            <a href="insights.html" class="back-link">← Back to Insights</a>
+            <div class="article-chip-row">
+                <span class="chip chip-engineering">Engineering</span>
+                <span class="mono" style="opacity: 0.5;">August 28, 2026</span>
+            </div>
+            <h1>60fps Animations on Mobile</h1>
+            <div class="article-meta">
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M20 21a8 8 0 0 0-16 0" />
+                    </svg>
+                    <span>Power Trio Editorial</span>
+                </div>
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>8 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="article-container">
+        <article class="article-body">
+            <p>Mobile devices have caught up to desktops in raw power, but the animation gap persists. A smooth 60fps
+                animation on your MacBook Pro will stutter at 24fps on a mid-range Android. Here's how we guarantee
+                fluid motion everywhere.</p>
+
+            <h2>The 16ms Budget</h2>
+            <p>At 60fps, each frame has exactly 16.67 milliseconds to complete. That includes JavaScript execution,
+                style calculations, layout, paint, and compositing. Miss that budget on even a single frame and users
+                notice the jank.</p>
+
+            <blockquote class="accent-green">
+                <p>Users can perceive animation stutter as low as 2 dropped frames. Your 58fps isn't "good enough" —
+                    it's broken.</p>
+            </blockquote>
+
+            <h2>The Compositor Thread</h2>
+            <p>The single biggest performance win is moving animations off the main thread. Only two CSS properties are
+                compositor-friendly: <code>transform</code> and <code>opacity</code>. Every other property triggers
+                layout or paint, which blocks the main thread.</p>
+
+            <pre><code>/* BAD — triggers layout */
+.box { transition: width 0.3s, left 0.3s; }
+
+/* GOOD — compositor only */
+.box { transition: transform 0.3s, opacity 0.3s; }
+
+/* Move instead of repositioning */
+.box.moved { transform: translateX(200px); }
+
+/* Scale instead of resizing */
+.box.expanded { transform: scale(1.5); }</code></pre>
+
+            <h2>will-change: The Double-Edged Sword</h2>
+            <p>The <code>will-change</code> property hints to the browser that an element will animate, allowing it to
+                create a dedicated GPU layer. But over-use creates memory pressure and can actually hurt performance.
+            </p>
+
+            <p>Our rules:</p>
+            <ul>
+                <li>Apply <code>will-change</code> only to elements actively animating</li>
+                <li>Remove it after animation completes</li>
+                <li>Never apply it to more than 10 elements simultaneously</li>
+                <li>Use <code>contain: layout style paint</code> as a lighter alternative</li>
+            </ul>
+
+            <div class="article-visual">
+                <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="760" height="250" fill="#0B1410" />
+                    <rect x="40" y="40" width="680" height="6" rx="3" fill="rgba(16,185,129,.15)" />
+                    <rect x="40" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="80" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="120" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="160" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="200" y="60" width="8" height="32" rx="2" fill="rgba(236,72,153,.4)" />
+                    <rect x="240" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="280" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="320" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="360" y="60" width="8" height="35" rx="2" fill="rgba(236,72,153,.4)" />
+                    <rect x="400" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <rect x="440" y="60" width="8" height="25" rx="2" fill="rgba(16,185,129,.4)" />
+                    <text x="390" y="120" font-size="10" fill="rgba(255,255,255,.15)" font-family="monospace">BEFORE —
+                        jank frames at 200, 360</text>
+                    <rect x="40" y="150" width="680" height="6" rx="3" fill="rgba(16,185,129,.2)" />
+                    <rect x="40" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="80" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="120" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="160" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="200" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="240" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="280" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="320" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="360" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="400" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <rect x="440" y="170" width="8" height="22" rx="2" fill="rgba(16,185,129,.5)" />
+                    <text x="390" y="220" font-size="10" fill="rgba(16,185,129,.3)" font-family="monospace">AFTER —
+                        consistent 60fps</text>
+                </svg>
+            </div>
+
+            <h2>requestAnimationFrame Done Right</h2>
+            <p>Never use <code>setTimeout</code> or <code>setInterval</code> for animations.
+                <code>requestAnimationFrame</code> synchronizes with the browser's paint cycle, giving you the full 16ms
+                budget and automatically pausing in inactive tabs.
+            </p>
+
+            <pre><code>function animate(timestamp) {
+  const delta = timestamp - lastTime;
+  lastTime = timestamp;
+  position += velocity * (delta / 1000);
+  element.style.transform = `translateX(${position}px)`;
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);</code></pre>
+
+            <h2>Testing on Real Devices</h2>
+            <p>Chrome DevTools' performance profiler is a start, but it doesn't catch what you'll see on a $200 Android
+                phone. We test every animation on at minimum: a flagship iOS device, a mid-range Android (Pixel 6a or
+                equivalent), and a budget device (sub-$200). If it's smooth on the budget device, it's smooth
+                everywhere.</p>
+
+            <div class="article-tags">
+                <span class="tag">Performance</span>
+                <span class="tag">Animation</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Mobile</span>
+            </div>
+
+            <nav class="article-nav">
+                <a href="insight-flat-design.html">
+                    <div class="nav-label">← Previous</div>
+                    <div class="nav-title">The Death of Flat Design</div>
+                </a>
+                <a href="insight-conversion-aesthetics.html" style="text-align:right">
+                    <div class="nav-label">Next →</div>
+                    <div class="nav-title">Conversion vs. Aesthetics</div>
+                </a>
+            </nav>
+        </article>
+    </div>
+
+    <div id="footer-inject"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

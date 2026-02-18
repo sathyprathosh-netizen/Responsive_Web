@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal | Power Trio</title>
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        .portal-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 80vh;
+            gap: 2rem;
+        }
+
+        .portal-sidebar {
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding-right: 2rem;
+            margin-left: 0;
+        }
+
+        .portal-nav-item {
+            display: block;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .portal-nav-item:hover,
+        .portal-nav-item.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .dashboard-card {
+            background: rgba(21, 25, 33, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            box-shadow: 0 0 15px var(--accent-primary);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .dashboard-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+            background: rgba(21, 25, 33, 0.8);
+        }
+
+        .portal-nav-item:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .portal-layout {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .portal-header-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .portal-sidebar {
+                border-right: none;
+                padding-right: 0;
+                display: flex;
+                overflow-x: auto;
+                gap: 0.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                margin-bottom: 1rem;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+            }
+
+            .portal-nav-item {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            .dashboard-card {
+                text-align: center;
+            }
+
+            .dashboard-card .flex.justify-between {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .animate-fade-out {
+            animation: fadeOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--accent-primary), transparent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="container" style="padding: 8rem 0 2rem;">
+        <div class="flex justify-between items-center mb-12 portal-header-flex">
+            <h1 class="animate-slide-up" style="margin: 0;">Client Portal</h1>
+            <div class="flex items-center gap-md reveal">
+                <div class="avatar-container">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="20" fill="url(#avatarGradient)" />
+                        <circle cx="20" cy="15" r="5" fill="white" fill-opacity="0.8" />
+                        <path d="M10 32C10 26.4772 14.4772 22 20 22C25.5228 22 30 26.4772 30 32" stroke="white"
+                            stroke-width="2.5" stroke-linecap="round" />
+                        <defs>
+                            <linearGradient id="avatarGradient" x1="0" y1="0" x2="40" y2="40"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#6366F1" />
+                                <stop offset="1" stop-color="#4F46E5" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="flex flex-column">
+                    <span class="mono text-xs opacity-50">Welcome back,</span>
+                    <span class="font-bold text-sm">Acme Corp</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container portal-layout">
+        <!-- Sidebar -->
+        <aside class="portal-sidebar reveal delay-100">
+            <a href="#" class="portal-nav-item active">Dashboard</a>
+            <a href="#" class="portal-nav-item">Files & Assets</a>
+            <a href="#" class="portal-nav-item">Invoices</a>
+            <a href="#" class="portal-nav-item">Settings</a>
+            <a href="#" class="portal-nav-item" style="color: #EF4444; margin-top: 4rem;">Logout</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="reveal delay-200">
+            <!-- Active Project -->
+            <div class="dashboard-card">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="badge mb-2">Active Project</span>
+                        <h3>Q3 Marketing Site</h3>
+                    </div>
+                    <span class="mono" style="color: var(--success);">On Track</span>
+                </div>
+
+                <div class="flex justify-between text-sm opacity-75 mb-2">
+                    <span>Progress</span>
+                    <span>75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%;"></div>
+                </div>
+            </div>
+
+            <div class="grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                <div class="dashboard-card">
+                    <h4 class="mb-4">Recent Updates</h4>
+                    <ul class="text-sm space-y-2 opacity-75">
+                        <li class="mb-2">• Homepage mockup approved</li>
+                        <li class="mb-2">• Development environment setup</li>
+                        <li class="mb-2">• Assets received from client</li>
+                    </ul>
+                </div>
+                <div class="dashboard-card">
+                    <h4 class="mb-4">Upcoming Milestones</h4>
+                    <ul class="text-sm space-y-2 opacity-75">
+                        <li class="mb-2">
+                            <span class="text-white">Sep 15:</span> Beta Launch
+                        </li>
+                        <li class="mb-2">
+                            <span class="text-white">Sep 20:</span> QA Testing
+                        </li>
+                        <li class="mb-2">
+                            <span class="text-white">Oct 01:</span> Go Live
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <div id="footer-inject"></div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+
+    <script>
+        // --- View Management ---
+        const navItems = document.querySelectorAll('.portal-nav-item');
+        const mainContent = document.querySelector('main');
+
+        const views = {
+            dashboard: `
+                <div class="dashboard-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="badge mb-2">Active Project</span>
+                            <h3>Q3 Marketing Site</h3>
+                        </div>
+                        <span class="mono" style="color: var(--success);">On Track</span>
+                    </div>
+                    <div class="flex justify-between text-sm opacity-75 mb-2">
+                        <span>Progress</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                    <div class="dashboard-card">
+                        <h4 class="mb-4">Recent Updates</h4>
+                        <ul class="text-sm space-y-2 opacity-75">
+                            <li class="mb-2">• Homepage mockup approved</li>
+                            <li class="mb-2">• Development environment setup</li>
+                            <li class="mb-2">• Assets received from client</li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h4 class="mb-4">Upcoming Milestones</h4>
+                        <ul class="text-sm space-y-2 opacity-75">
+                            <li class="mb-2"><span class="text-white">Sep 15:</span> Beta Launch</li>
+                            <li class="mb-2"><span class="text-white">Sep 20:</span> QA Testing</li>
+                            <li class="mb-2"><span class="text-white">Oct 01:</span> Go Live</li>
+                        </ul>
+                    </div>
+                </div>
+            `,
+            files: `
+                <div class="dashboard-card">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3>Files & Assets</h3>
+                        <button class="btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.8rem;">Upload New</button>
+                    </div>
+                    <div class="space-y-4">
+                        ${[
+                    { name: 'Brand_Guidelines_v2.pdf', size: '4.2 MB', date: 'Aug 12, 2026', type: 'PDF' },
+                    { name: 'Homepage_Layout_Final.fig', size: '12.8 MB', date: 'Aug 20, 2026', type: 'FIG' },
+                    { name: 'Logo_Assets_Vector.zip', size: '2.1 MB', date: 'Aug 22, 2026', type: 'ZIP' },
+                    { name: 'Typography_Specs.css', size: '15 KB', date: 'Aug 25, 2026', type: 'CSS' }
+                ].map(file => `
+                            <div class="flex justify-between items-center p-5 portal-file-row" style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius: 0.75rem; margin-bottom: 1rem; transition: var(--transition-smooth); flex-wrap: wrap; gap: 1.5rem;">
+                                <div class="flex items-center gap-md" style="flex: 1; min-width: 200px;">
+                                    <div class="file-icon" style="width: 44px; height: 44px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent-primary); flex-shrink: 0;">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><polyline points="13 2 13 9 20 9"/></svg>
+                                    </div>
+                                    <div style="flex: 1; text-align: left;">
+                                        <div class="text-sm font-bold" style="color: var(--text-primary); margin-bottom: 2px;">${file.name}</div>
+                                        <div class="mono text-xs opacity-50 uppercase">${file.type} • ${file.size} • ${file.date}</div>
+                                    </div>
+                                </div>
+                                <div class="file-action" style="width: 100%; max-width: 120px; text-align: right;">
+                                    <a href="#" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem; width: 100%; justify-content: center;">Download</a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `,
+            invoices: `
+                <div class="dashboard-card">
+                    <h3 class="mb-6">Billing & Invoices</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <th style="padding: 1rem 0.5rem;">Invoice #</th>
+                                <th style="padding: 1rem 0.5rem;">Amount</th>
+                                <th style="padding: 1rem 0.5rem;">Status</th>
+                                <th style="padding: 1rem 0.5rem;">Date</th>
+                                <th style="padding: 1rem 0.5rem; text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${[
+                    { id: 'INV-2026-042', amount: '$4,500.00', status: 'Paid', date: 'Aug 01, 2026', color: 'var(--success)' },
+                    { id: 'INV-2026-038', amount: '$2,200.00', status: 'Paid', date: 'Jul 15, 2026', color: 'var(--success)' },
+                    { id: 'INV-2026-031', amount: '$5,000.00', status: 'Pending', date: 'Aug 30, 2026', color: 'var(--accent-primary)' }
+                ].map(inv => `
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                                    <td style="padding: 1rem 0.5rem;" class="mono">${inv.id}</td>
+                                    <td style="padding: 1rem 0.5rem;">${inv.amount}</td>
+                                    <td style="padding: 1rem 0.5rem;"><span class="chip" style="background: rgba(255,255,255,0.03); color: ${inv.color}; padding: 0.2rem 0.5rem; font-size: 0.7rem;">${inv.status}</span></td>
+                                    <td style="padding: 1rem 0.5rem; opacity: 0.6;">${inv.date}</td>
+                                    <td style="padding: 1rem 0.5rem; text-align: right;"><a href="#" class="read-more" style="font-size: 0.75rem;">View</a></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `,
+            settings: `
+                <div class="dashboard-card">
+                    <h3 class="mb-6">Account Settings</h3>
+                    <form onsubmit="event.preventDefault(); alert('Settings updated');" class="space-y-6">
+                        <div class="grid portal-settings-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div style="text-align: left;">
+                                <label class="mono text-xs opacity-50 block mb-2">Company Name</label>
+                                <input type="text" value="Acme Corp" class="btn-primary" style="width: 100%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); text-align: left; padding: 0.75rem; cursor: text;">
+                            </div>
+                            <div style="text-align: left;">
+                                <label class="mono text-xs opacity-50 block mb-2">Contact Email</label>
+                                <input type="email" value="billing@acme.com" class="btn-primary" style="width: 100%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); text-align: left; padding: 0.75rem; cursor: text;">
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem; text-align: left;">
+                            <h4 class="mb-4">Notification Preferences</h4>
+                            <div class="flex justify-between items-center p-4 mb-2" style="background: rgba(255,255,255,0.02); border-radius: 0.5rem; gap: 1rem;">
+                                <span>Email alerts for project updates</span>
+                                <input type="checkbox" checked style="accent-color: var(--accent-primary); width: 20px; height: 20px;">
+                            </div>
+                            <div class="flex justify-between items-center p-4 mb-2" style="background: rgba(255,255,255,0.02); border-radius: 0.5rem; gap: 1rem;">
+                                <span>Monthly strategy brief</span>
+                                <input type="checkbox" checked style="accent-color: var(--accent-primary); width: 20px; height: 20px;">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top: 2rem;">Save Changes</button>
+                    </form>
+                </div>
+            `
+        };
+
+        function switchView(viewName) {
+            mainContent.classList.add('animate-fade-out');
+
+            setTimeout(() => {
+                const content = views[viewName] || views.dashboard;
+                mainContent.innerHTML = content;
+
+                // Re-trigger progress bar animation if on dashboard
+                if (viewName === 'dashboard' || !viewName) {
+                    setTimeout(() => {
+                        const fill = document.querySelector('.progress-fill');
+                        if (fill) fill.style.width = '75%';
+                    }, 50);
+                }
+
+                mainContent.classList.remove('animate-fade-out');
+                mainContent.classList.add('animate-fade-in');
+            }, 300);
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (item.getAttribute('style')?.includes('EF4444')) return; // Ignore logout
+                e.preventDefault();
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const viewName = item.textContent.toLowerCase().includes('files') ? 'files' :
+                    item.textContent.toLowerCase().includes('invoices') ? 'invoices' :
+                        item.textContent.toLowerCase().includes('settings') ? 'settings' : 'dashboard';
+
+                switchView(viewName);
+            });
+        });
+
+        // Initial animation
+        setTimeout(() => {
+            const fill = document.querySelector('.progress-fill');
+            if (fill) fill.style.width = '75%';
+        }, 500);
+    </script>
+</body>
+
+</html>

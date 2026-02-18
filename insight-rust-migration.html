@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why We Switched to Rust | Power Trio</title>
+    <meta name="description"
+        content="Our backend migration from Node.js to Rust — benchmarks, DX tradeoffs, and memory safety at scale.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/article.css">
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="article-hero">
+        <div class="article-hero-bg">
+            <svg viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="800" fill="#0B1410" />
+                <defs>
+                    <pattern id="ahg5" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(16,185,129,.03)" stroke-width=".5" />
+                    </pattern>
+                </defs>
+                <rect width="1920" height="800" fill="url(#ahg5)" />
+            </svg>
+        </div>
+        <div class="article-hero-overlay"></div>
+        <div class="article-container article-hero-content">
+            <a href="insights.html" class="back-link">← Back to Insights</a>
+            <div class="article-chip-row">
+                <span class="chip chip-engineering">Engineering</span>
+                <span class="mono" style="opacity: 0.5;">July 5, 2026</span>
+            </div>
+            <h1>Why We Switched to Rust</h1>
+            <div class="article-meta">
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M20 21a8 8 0 0 0-16 0" />
+                    </svg>
+                    <span>Power Trio Editorial</span>
+                </div>
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>9 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="article-container">
+        <article class="article-body">
+            <p class="reveal">In early 2025, we made a decision that terrified half our engineering team: we migrated
+                our core backend
+                services from Node.js to Rust. A year later, we can say without hesitation — it was the best technical
+                decision we've ever made.</p>
+
+            <h2 class="reveal">Why Node.js Wasn't Enough</h2>
+            <p class="reveal">Let's be clear: Node.js is a fantastic runtime. We built our first 15 projects on it. But
+                as our client
+                workloads grew — particularly in fintech and healthcare — we kept hitting the same walls:</p>
+            <ul class="reveal">
+                <li>Memory usage spiking unpredictably under load</li>
+                <li>Garbage collection pauses causing latency spikes</li>
+                <li>No compile-time guarantees for critical data transformations</li>
+                <li>Difficulty reasoning about concurrency in complex async workflows</li>
+            </ul>
+
+            <blockquote class="accent-green reveal">
+                <p>We didn't leave Node.js because it was bad. We left because our problems outgrew its comfort zone.
+                </p>
+            </blockquote>
+
+            <h2>The Benchmarks</h2>
+            <p>We ran identical workloads — a real-world API serving JSON with database queries, authentication, and
+                rate limiting — on both stacks:</p>
+
+            <table class="bench-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Node.js (Express)</th>
+                        <th>Rust (Axum)</th>
+                        <th>Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Requests/sec</td>
+                        <td>12,400</td>
+                        <td>89,000</td>
+                        <td style="color:#10B981">7.2×</td>
+                    </tr>
+                    <tr>
+                        <td>P99 Latency</td>
+                        <td>145ms</td>
+                        <td>8ms</td>
+                        <td style="color:#10B981">18×</td>
+                    </tr>
+                    <tr>
+                        <td>Memory (idle)</td>
+                        <td>120MB</td>
+                        <td>4MB</td>
+                        <td style="color:#10B981">30×</td>
+                    </tr>
+                    <tr>
+                        <td>Memory (peak)</td>
+                        <td>850MB</td>
+                        <td>28MB</td>
+                        <td style="color:#10B981">30×</td>
+                    </tr>
+                    <tr>
+                        <td>Cold start</td>
+                        <td>1.2s</td>
+                        <td>12ms</td>
+                        <td style="color:#10B981">100×</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>The Learning Curve</h2>
+            <p>Yes, Rust is harder to learn than JavaScript. The borrow checker will humble you. Lifetimes will confuse
+                you. But here's the thing: Rust's compiler errors are the best documentation you'll ever read.</p>
+            <p>Our team's onboarding timeline:</p>
+            <ul>
+                <li><strong>Week 1-2:</strong> Fighting the borrow checker constantly</li>
+                <li><strong>Week 3-4:</strong> Understanding ownership, writing basic services</li>
+                <li><strong>Month 2:</strong> Productive. Shipping features at 80% of Node.js speed</li>
+                <li><strong>Month 3+:</strong> Faster than Node.js. Fewer bugs. Better architecture</li>
+            </ul>
+
+            <h2>What We Still Use Node.js For</h2>
+            <p>Not everything needs Rust. We still use Node.js for:</p>
+            <ul>
+                <li>Rapid prototyping and proof-of-concepts</li>
+                <li>Simple CRUD APIs with low traffic</li>
+                <li>Build tooling and developer scripts</li>
+                <li>SSR with Next.js (React's ecosystem is unmatched)</li>
+            </ul>
+
+            <div class="article-visual reveal">
+                <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="760" height="300" fill="#0B1410" />
+                    <!-- Modern Terminal Visual -->
+                    <g transform="translate(130, 50)">
+                        <rect width="500" height="200" rx="12" fill="rgba(255,255,255,0.02)"
+                            stroke="rgba(16,185,129,0.2)" stroke-width="1.5" />
+                        <rect width="500" height="32" rx="12" fill="rgba(16,185,129,0.05)" />
+                        <circle cx="20" cy="16" r="4" fill="#EC4899" />
+                        <circle cx="36" cy="16" r="4" fill="#F59E0B" />
+                        <circle cx="52" cy="16" r="4" fill="#10B981" />
+
+                        <g transform="translate(30, 60)">
+                            <rect width="80" height="8" rx="4" fill="rgba(16,185,129,0.4)" />
+                            <rect x="100" y="0" width="300" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+
+                            <rect y="30" width="120" height="8" rx="4" fill="rgba(16,185,129,0.25)" />
+                            <rect x="140" y="30" width="220" height="8" rx="4" fill="rgba(255,255,255,0.03)" />
+
+                            <rect y="60" width="60" height="8" rx="4" fill="rgba(99,102,241,0.2)" />
+                            <rect x="80" y="60" width="320" height="8" rx="4" fill="rgba(255,255,255,0.02)" />
+
+                            <!-- Cursor -->
+                            <rect y="90" width="8" height="14" rx="2" fill="#10B981" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+
+            <p class="reveal">The key is choosing the right tool for the job. For performance-critical, long-running
+                services that
+                handle sensitive data — Rust. For everything else — whatever ships fastest.</p>
+
+            <blockquote class="accent-green">
+                <p>Rust didn't replace our stack. It completed it.</p>
+            </blockquote>
+
+            <div class="article-tags">
+                <span class="tag">Rust</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">Backend</span>
+                <span class="tag">Performance</span>
+                <span class="tag">Migration</span>
+            </div>
+
+            <nav class="article-nav">
+                <a href="insight-web-vitals.html">
+                    <div class="nav-label">← Previous</div>
+                    <div class="nav-title">Core Web Vitals Deep Dive</div>
+                </a>
+                <a href="insight-dark-mode.html" style="text-align:right">
+                    <div class="nav-label">Next →</div>
+                    <div class="nav-title">Dark Mode Done Right</div>
+                </a>
+            </nav>
+        </article>
+    </div>
+
+    <div id="footer-inject"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

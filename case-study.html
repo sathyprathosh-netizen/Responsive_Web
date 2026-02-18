@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoBank Interface | Case Study — Power Trio</title>
+    <meta name="description" content="How we redesigned a banking experience for Gen Z, achieving +45% retention.">
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        /* ============================================
+           CASE STUDY PAGE
+           ============================================ */
+
+        /* --- Hero --- */
+        .cs-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 5rem;
+        }
+
+        .cs-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .cs-hero-bg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cs-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-primary) 15%, rgba(11, 14, 20, 0.4) 60%, rgba(11, 14, 20, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .cs-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cs-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .cs-hero-sub {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        /* --- Meta Bar --- */
+        .cs-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cs-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .cs-meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+        }
+
+        .cs-meta-value {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* --- Content --- */
+        .cs-section {
+            padding: 5rem 0;
+        }
+
+        .cs-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cs-section-line {
+            width: 40px;
+            height: 2px;
+            background: var(--accent-primary);
+        }
+
+        .cs-section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+
+        .cs-body-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        /* --- Visual Block --- */
+        .cs-visual {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 3rem 0;
+        }
+
+        .cs-visual svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Process Steps --- */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .process-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .process-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4);
+        }
+
+        .process-card:hover::before {
+            opacity: 1;
+        }
+
+        .process-num {
+            font-family: 'Inter Tight', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.04);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .process-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .process-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- Results --- */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .result-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4);
+        }
+
+        .result-metric {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Inter Tight', sans-serif;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Testimonial --- */
+        .testimonial {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02));
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 1.5rem;
+            padding: 3.5rem;
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .quote-mark {
+            font-size: 5rem;
+            color: var(--accent-primary);
+            line-height: 1;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+        }
+
+        /* --- Next Project --- */
+        .next-project {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 5rem 0;
+        }
+
+        .next-project-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1.25rem;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .next-project-link:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateX(8px);
+        }
+
+        .next-arrow {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            transition: transform 0.3s;
+        }
+
+        .next-project-link:hover .next-arrow {
+            transform: translateX(8px);
+        }
+
+        /* --- Responsive --- */
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .cs-meta {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cs-hero {
+                min-height: 50vh;
+                padding-bottom: 3rem;
+                text-align: center;
+            }
+
+            .cs-hero-content .flex {
+                justify-content: center;
+            }
+
+            .cs-hero-sub {
+                margin: 0 auto;
+            }
+
+            .cs-meta {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem 0;
+                text-align: center;
+            }
+
+            .cs-section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cs-body-text,
+            .cs-section h2 {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-card {
+                text-align: center;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial {
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+
+            .quote-mark {
+                font-size: 3rem;
+                top: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .next-project-link {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-inject"></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="cs-hero">
+        <!-- SVG Background -->
+        <div class="cs-hero-bg">
+            <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="1080" fill="#0B0E14" />
+                <defs>
+                    <pattern id="heroGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+                        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(99,102,241,0.06)" stroke-width="0.5" />
+                    </pattern>
+                </defs>
+                <rect width="1920" height="1080" fill="url(#heroGrid)" />
+                <circle cx="960" cy="540" r="300" fill="rgba(99,102,241,0.06)" />
+                <circle cx="960" cy="540" r="180" fill="rgba(99,102,241,0.04)" />
+                <!-- Abstract dashboard -->
+                <rect x="560" y="200" width="800" height="500" rx="16" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(99,102,241,0.08)" stroke-width="1" />
+                <rect x="590" y="240" width="200" height="10" rx="5" fill="rgba(99,102,241,0.25)" />
+                <rect x="590" y="270" width="300" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+                <rect x="590" y="310" width="740" height="350" rx="10" fill="rgba(255,255,255,0.015)"
+                    stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                <!-- Chart bars -->
+                <rect x="620" y="560" width="50" height="80" rx="4" fill="rgba(99,102,241,0.3)" />
+                <rect x="690" y="500" width="50" height="140" rx="4" fill="rgba(99,102,241,0.45)" />
+                <rect x="760" y="460" width="50" height="180" rx="4" fill="rgba(99,102,241,0.55)" />
+                <rect x="830" y="520" width="50" height="120" rx="4" fill="rgba(99,102,241,0.4)" />
+                <rect x="900" y="440" width="50" height="200" rx="4" fill="rgba(99,102,241,0.6)" />
+                <rect x="970" y="480" width="50" height="160" rx="4" fill="rgba(99,102,241,0.5)" />
+                <rect x="1040" y="420" width="50" height="220" rx="4" fill="rgba(99,102,241,0.7)" />
+                <rect x="1110" y="470" width="50" height="170" rx="4" fill="rgba(99,102,241,0.5)" />
+                <rect x="1180" y="500" width="50" height="140" rx="4" fill="rgba(99,102,241,0.4)" />
+                <rect x="1250" y="530" width="50" height="110" rx="4" fill="rgba(99,102,241,0.35)" />
+            </svg>
+        </div>
+        <div class="cs-hero-overlay"></div>
+
+        <div class="container cs-hero-content">
+            <div class="flex items-center gap-sm mb-4 animate-fade-in">
+                <span class="badge">FinTech</span>
+                <span class="mono text-sm" style="color: var(--text-secondary);">5 Min Read</span>
+            </div>
+            <h1 class="animate-slide-up">NeoBank Interface Design</h1>
+            <p class="cs-hero-sub animate-slide-up delay-100">Redefining digital banking for the Gen Z demographic —
+                faster, cleaner, and built for mobile-first.</p>
+        </div>
+    </section>
+
+    <!-- ===== META BAR ===== -->
+    <section class="container">
+        <div class="cs-meta reveal">
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Client</span>
+                <span class="cs-meta-value">FinCorp</span>
+            </div>
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Timeline</span>
+                <span class="cs-meta-value">3 Months</span>
+            </div>
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Role</span>
+                <span class="cs-meta-value">UI/UX, Dev</span>
+            </div>
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Stack</span>
+                <span class="cs-meta-value">React, Node.js</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== THE CHALLENGE ===== -->
+    <section class="container cs-section">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">The Challenge</span>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; max-width: 600px;"
+            class="reveal delay-100">
+            Legacy banks weren't built for the swipe generation.
+        </h2>
+        <p class="cs-body-text reveal delay-200">
+            Traditional banking apps are cluttered, slow, and uninspiring. FinCorp needed a mobile-first experience that
+            felt as intuitive as social media but functioned with bank-grade security. Users were dropping off at
+            onboarding — a 68% abandonment rate that was costing millions.
+        </p>
+
+        <!-- Visual: Before/After -->
+        <div class="cs-visual reveal">
+            <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1200" height="500" fill="#0F1117" />
+                <!-- Before side -->
+                <text x="180" y="40" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="14"
+                    text-anchor="middle">BEFORE</text>
+                <rect x="60" y="60" width="240" height="420" rx="20" fill="rgba(255,255,255,0.03)"
+                    stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <rect x="80" y="90" width="200" height="12" rx="6" fill="rgba(255,255,255,0.06)" />
+                <rect x="80" y="115" width="140" height="8" rx="4" fill="rgba(255,255,255,0.04)" />
+                <rect x="80" y="140" width="200" height="60" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                <rect x="80" y="215" width="200" height="60" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                <rect x="80" y="290" width="200" height="60" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                <rect x="80" y="365" width="200" height="60" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+
+                <!-- Arrow -->
+                <line x1="400" y1="250" x2="500" y2="250" stroke="rgba(99,102,241,0.4)" stroke-width="2" />
+                <polygon points="500,242 520,250 500,258" fill="rgba(99,102,241,0.4)" />
+                <text x="460" y="230" fill="rgba(99,102,241,0.6)" font-family="monospace" font-size="11"
+                    text-anchor="middle">REDESIGN</text>
+
+                <!-- After side -->
+                <text x="780" y="40" fill="rgba(99,102,241,0.6)" font-family="monospace" font-size="14"
+                    text-anchor="middle">AFTER</text>
+                <rect x="660" y="60" width="240" height="420" rx="24" fill="rgba(99,102,241,0.04)"
+                    stroke="rgba(99,102,241,0.15)" stroke-width="1.5" />
+                <!-- Balance card -->
+                <rect x="680" y="90" width="200" height="100" rx="12" fill="rgba(99,102,241,0.1)"
+                    stroke="rgba(99,102,241,0.2)" stroke-width="1" />
+                <rect x="700" y="110" width="80" height="8" rx="4" fill="rgba(99,102,241,0.3)" />
+                <rect x="700" y="130" width="120" height="16" rx="4" fill="rgba(255,255,255,0.15)" />
+                <rect x="700" y="158" width="60" height="6" rx="3" fill="rgba(16,185,129,0.4)" />
+                <!-- Quick actions -->
+                <circle cx="710" cy="230" r="20" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)"
+                    stroke-width="1" />
+                <circle cx="760" cy="230" r="20" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)"
+                    stroke-width="1" />
+                <circle cx="810" cy="230" r="20" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)"
+                    stroke-width="1" />
+                <circle cx="860" cy="230" r="20" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)"
+                    stroke-width="1" />
+                <!-- Transaction list -->
+                <rect x="680" y="270" width="200" height="50" rx="10" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                <rect x="680" y="330" width="200" height="50" rx="10" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                <rect x="680" y="390" width="200" height="50" rx="10" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+
+                <!-- Right side - desktop -->
+                <rect x="960" y="60" width="200" height="420" rx="12" fill="rgba(99,102,241,0.02)"
+                    stroke="rgba(99,102,241,0.08)" stroke-width="1" />
+                <rect x="975" y="85" width="170" height="8" rx="4" fill="rgba(99,102,241,0.15)" />
+                <rect x="975" y="110" width="170" height="120" rx="8" fill="rgba(99,102,241,0.04)" />
+                <!-- Mini chart -->
+                <polyline points="990,200 1010,180 1030,190 1050,160 1070,170 1090,140 1110,150 1130,120" fill="none"
+                    stroke="rgba(99,102,241,0.5)" stroke-width="2" />
+                <circle cx="1130" cy="120" r="3" fill="#6366F1" />
+                <rect x="975" y="250" width="170" height="40" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                <rect x="975" y="300" width="170" height="40" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+                <rect x="975" y="350" width="170" height="40" rx="8" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ===== OUR PROCESS ===== -->
+    <section class="container cs-section" style="padding-top: 0;">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">Our Process</span>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 3rem;" class="reveal delay-100">
+            Three phases. Zero guesswork.
+        </h2>
+
+        <div class="process-grid">
+            <div class="process-card reveal delay-100">
+                <div class="process-num">01</div>
+                <h3>Discovery & Research</h3>
+                <p>We interviewed 50 real users to map pain points. Competitive audit of 12 neobanks revealed critical
+                    UX gaps no one was addressing.</p>
+            </div>
+            <div class="process-card reveal delay-200">
+                <div class="process-num">02</div>
+                <h3>Prototyping & Testing</h3>
+                <p>Low-fidelity wireframes focused on transaction speed and balance clarity. We iterated through 4
+                    rounds of user testing before committing to pixels.</p>
+            </div>
+            <div class="process-card reveal delay-300">
+                <div class="process-num">03</div>
+                <h3>High-Fidelity & Dev</h3>
+                <p>Introduced the "Midnight" dark theme to reduce eye strain. Built with React for performance and
+                    Node.js for real-time transaction feeds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="container cs-section">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">The Results</span>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 3rem;" class="reveal delay-100">
+            Numbers that speak louder than pixels.
+        </h2>
+
+        <div class="results-grid">
+            <div class="result-card reveal">
+                <div class="result-metric" style="color: var(--success);">+45%</div>
+                <div class="result-label">User Retention</div>
+            </div>
+            <div class="result-card reveal delay-100">
+                <div class="result-metric" style="color: var(--accent-primary);">2.1s</div>
+                <div class="result-label">Avg. Load Time</div>
+            </div>
+            <div class="result-card reveal delay-200">
+                <div class="result-metric" style="color: var(--accent-secondary);">-68%</div>
+                <div class="result-label">Onboarding Drop-off</div>
+            </div>
+            <div class="result-card reveal delay-300">
+                <div class="result-metric" style="color: var(--success);">4.8★</div>
+                <div class="result-label">App Store Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIAL ===== -->
+    <section class="container cs-section" style="padding-top: 0;">
+        <div class="testimonial reveal">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-quote">
+                The Power Trio didn't just redesign our app — they fundamentally changed how our users feel about
+                banking. The retention numbers alone paid for the project ten times over.
+            </p>
+            <div class="testimonial-author">Sarah Chen</div>
+            <div class="testimonial-role">VP of Product, FinCorp</div>
+        </div>
+    </section>
+
+    <!-- ===== NEXT PROJECT ===== -->
+    <section class="container next-project">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">Next Project</span>
+        </div>
+        <a href="case-study-velvet.html" class="next-project-link reveal delay-100">
+            <div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">02 / E-Commerce
+                </div>
+                <h2 style="font-size: 2.5rem; font-weight: 700;">Velvet & Void</h2>
+            </div>
+            <span class="next-arrow">→</span>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-inject"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

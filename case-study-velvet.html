@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet & Void | Case Study — Power Trio</title>
+    <meta name="description" content="How we built a luxury fashion e-commerce experience that tripled conversions.">
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        /* ============================================
+           CASE STUDY — VELVET & VOID
+           ============================================ */
+
+        .cs-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 5rem;
+        }
+
+        .cs-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .cs-hero-bg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cs-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-primary) 15%, rgba(11, 14, 20, 0.4) 60%, rgba(11, 14, 20, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .cs-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cs-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .cs-hero-sub {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        .cs-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cs-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .cs-meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+        }
+
+        .cs-meta-value {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .cs-section {
+            padding: 5rem 0;
+        }
+
+        .cs-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cs-section-line {
+            width: 40px;
+            height: 2px;
+            background: var(--accent-secondary);
+        }
+
+        .cs-section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+
+        .cs-body-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        .cs-visual {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 3rem 0;
+        }
+
+        .cs-visual svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Process */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .process-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-secondary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .process-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(165, 180, 252, 0.2);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4);
+        }
+
+        .process-card:hover::before {
+            opacity: 1;
+        }
+
+        .process-num {
+            font-family: 'Inter Tight', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.04);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .process-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .process-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Results */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .result-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4);
+        }
+
+        .result-metric {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Inter Tight', sans-serif;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: linear-gradient(135deg, rgba(165, 180, 252, 0.08), rgba(165, 180, 252, 0.02));
+            border: 1px solid rgba(165, 180, 252, 0.12);
+            border-radius: 1.5rem;
+            padding: 3.5rem;
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .quote-mark {
+            font-size: 5rem;
+            color: var(--accent-secondary);
+            line-height: 1;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+        }
+
+        /* Next Project */
+        .next-project {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 5rem 0;
+        }
+
+        .next-project-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1.25rem;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .next-project-link:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateX(8px);
+        }
+
+        .next-arrow {
+            font-size: 2rem;
+            color: var(--accent-secondary);
+            transition: transform 0.3s;
+        }
+
+        .next-project-link:hover .next-arrow {
+            transform: translateX(8px);
+        }
+
+        @media (max-width: 1024px) {
+            .cs-meta {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cs-hero {
+                min-height: 50vh;
+                padding-bottom: 3rem;
+                text-align: center;
+            }
+
+            .cs-hero-content .flex {
+                justify-content: center;
+            }
+
+            .cs-hero-sub {
+                margin: 0 auto;
+            }
+
+            .cs-meta {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem 0;
+                text-align: center;
+            }
+
+            .cs-section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cs-body-text,
+            .cs-section h2 {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-card {
+                text-align: center;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial {
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+
+            .quote-mark {
+                font-size: 3rem;
+                top: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .next-project-link {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-inject"></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="cs-hero">
+        <div class="cs-hero-bg">
+            <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="1080" fill="#12101A" />
+                <circle cx="960" cy="540" r="400" fill="rgba(165,180,252,0.04)" />
+                <circle cx="960" cy="540" r="200" fill="rgba(165,180,252,0.03)" />
+                <!-- Fashion product cards -->
+                <rect x="350" y="180" width="340" height="500" rx="20" fill="rgba(255,255,255,0.025)"
+                    stroke="rgba(165,180,252,0.1)" stroke-width="1" />
+                <rect x="375" y="210" width="290" height="300" rx="12" fill="rgba(165,180,252,0.04)" />
+                <rect x="375" y="530" width="160" height="10" rx="5" fill="rgba(165,180,252,0.2)" />
+                <rect x="375" y="555" width="200" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+                <rect x="375" y="578" width="120" height="8" rx="4" fill="rgba(255,255,255,0.03)" />
+                <rect x="375" y="620" width="100" height="36" rx="8" fill="rgba(165,180,252,0.12)"
+                    stroke="rgba(165,180,252,0.2)" stroke-width="1" />
+
+                <rect x="750" y="250" width="340" height="500" rx="20" fill="rgba(255,255,255,0.025)"
+                    stroke="rgba(165,180,252,0.08)" stroke-width="1" />
+                <rect x="775" y="280" width="290" height="300" rx="12" fill="rgba(165,180,252,0.035)" />
+                <rect x="775" y="600" width="160" height="10" rx="5" fill="rgba(165,180,252,0.15)" />
+                <rect x="775" y="625" width="200" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+                <rect x="775" y="648" width="120" height="8" rx="4" fill="rgba(255,255,255,0.03)" />
+
+                <rect x="1150" y="200" width="340" height="500" rx="20" fill="rgba(255,255,255,0.025)"
+                    stroke="rgba(165,180,252,0.06)" stroke-width="1" />
+                <rect x="1175" y="230" width="290" height="300" rx="12" fill="rgba(165,180,252,0.03)" />
+                <rect x="1175" y="550" width="160" height="10" rx="5" fill="rgba(165,180,252,0.12)" />
+                <rect x="1175" y="575" width="200" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+            </svg>
+        </div>
+        <div class="cs-hero-overlay"></div>
+
+        <div class="container cs-hero-content">
+            <div class="flex items-center gap-sm mb-4 animate-fade-in">
+                <span class="badge"
+                    style="background: rgba(165,180,252,0.15); color: #A5B4FC; border-color: rgba(165,180,252,0.3);">E-Commerce</span>
+                <span class="mono text-sm" style="color: var(--text-secondary);">6 Min Read</span>
+            </div>
+            <h1 class="animate-slide-up">Velvet & Void</h1>
+            <p class="cs-hero-sub animate-slide-up delay-100">A high-fashion e-commerce experience driven by fluid
+                transitions and immersive product storytelling.</p>
+        </div>
+    </section>
+
+    <!-- ===== META BAR ===== -->
+    <section class="container">
+        <div class="cs-meta reveal">
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Client</span>
+                <span class="cs-meta-value">Velvet & Void</span>
+            </div>
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Timeline</span>
+                <span class="cs-meta-value">4 Months</span>
+            </div>
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Role</span>
+                <span class="cs-meta-value">Full Stack, Motion</span>
+            </div>
+            <div class="cs-meta-item">
+                <span class="cs-meta-label">Stack</span>
+                <span class="cs-meta-value">Next.js, GSAP, Shopify</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== THE CHALLENGE ===== -->
+    <section class="container cs-section">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">The Challenge</span>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; max-width: 600px;"
+            class="reveal delay-100">
+            Luxury fashion deserves more than a product grid.
+        </h2>
+        <p class="cs-body-text reveal delay-200">
+            Velvet & Void is a haute couture brand that was losing online sales to competitors with more immersive
+            digital experiences. Their existing Shopify store felt generic — identical to every other fashion brand.
+            They needed a digital flagship that conveyed the same emotion as walking into their Milan boutique.
+        </p>
+
+        <!-- Visual: Fashion UI -->
+        <div class="cs-visual reveal">
+            <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1200" height="500" fill="#12101A" />
+                <!-- Left: Editorial layout -->
+                <rect x="60" y="40" width="500" height="420" rx="16" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(165,180,252,0.08)" stroke-width="1" />
+                <rect x="80" y="60" width="460" height="280" rx="10" fill="rgba(165,180,252,0.04)" />
+                <rect x="80" y="360" width="200" height="12" rx="6" fill="rgba(165,180,252,0.25)" />
+                <rect x="80" y="385" width="300" height="8" rx="4" fill="rgba(255,255,255,0.06)" />
+                <rect x="80" y="405" width="250" height="8" rx="4" fill="rgba(255,255,255,0.04)" />
+                <rect x="80" y="430" width="120" height="10" rx="5" fill="rgba(165,180,252,0.15)" />
+
+                <!-- Right: Product detail -->
+                <rect x="620" y="40" width="520" height="420" rx="16" fill="rgba(255,255,255,0.02)"
+                    stroke="rgba(165,180,252,0.06)" stroke-width="1" />
+                <rect x="640" y="60" width="220" height="380" rx="10" fill="rgba(165,180,252,0.035)" />
+                <!-- Product info -->
+                <rect x="890" y="80" width="220" height="14" rx="6" fill="rgba(165,180,252,0.2)" />
+                <rect x="890" y="110" width="160" height="8" rx="4" fill="rgba(255,255,255,0.06)" />
+                <rect x="890" y="135" width="80" height="20" rx="4" fill="rgba(255,255,255,0.08)" />
+                <!-- Size buttons -->
+                <rect x="890" y="180" width="40" height="36" rx="8" fill="rgba(165,180,252,0.06)"
+                    stroke="rgba(165,180,252,0.15)" stroke-width="1" />
+                <rect x="940" y="180" width="40" height="36" rx="8" fill="rgba(165,180,252,0.12)"
+                    stroke="rgba(165,180,252,0.25)" stroke-width="1" />
+                <rect x="990" y="180" width="40" height="36" rx="8" fill="rgba(165,180,252,0.06)"
+                    stroke="rgba(165,180,252,0.15)" stroke-width="1" />
+                <rect x="1040" y="180" width="40" height="36" rx="8" fill="rgba(165,180,252,0.06)"
+                    stroke="rgba(165,180,252,0.15)" stroke-width="1" />
+                <!-- CTA button -->
+                <rect x="890" y="250" width="220" height="48" rx="10" fill="rgba(165,180,252,0.15)"
+                    stroke="rgba(165,180,252,0.3)" stroke-width="1" />
+                <!-- Description -->
+                <rect x="890" y="330" width="220" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
+                <rect x="890" y="346" width="180" height="6" rx="3" fill="rgba(255,255,255,0.03)" />
+                <rect x="890" y="362" width="200" height="6" rx="3" fill="rgba(255,255,255,0.03)" />
+                <rect x="890" y="378" width="150" height="6" rx="3" fill="rgba(255,255,255,0.02)" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ===== OUR PROCESS ===== -->
+    <section class="container cs-section" style="padding-top: 0;">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">Our Process</span>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 3rem;" class="reveal delay-100">
+            From catalog to catwalk.
+        </h2>
+
+        <div class="process-grid">
+            <div class="process-card reveal delay-100">
+                <div class="process-num">01</div>
+                <h3>Brand Immersion</h3>
+                <p>We spent two weeks at V&V's Milan HQ photographing their atelier, studying their fabric textures, and
+                    absorbing the brand DNA to translate it into pixels.</p>
+            </div>
+            <div class="process-card reveal delay-200">
+                <div class="process-num">02</div>
+                <h3>Motion Language</h3>
+                <p>We crafted a custom motion system using GSAP — every page transition mirrors the fluidity of silk.
+                    Product reveals use parallax layers inspired by editorial layouts.</p>
+            </div>
+            <div class="process-card reveal delay-300">
+                <div class="process-num">03</div>
+                <h3>Shopify Integration</h3>
+                <p>Custom Headless Shopify build using Next.js for blazing performance. Inventory synced in real-time
+                    with their Milan and Tokyo warehouses.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section class="container cs-section">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">The Results</span>
+        </div>
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 3rem;" class="reveal delay-100">
+            Fashion meets performance.
+        </h2>
+
+        <div class="results-grid">
+            <div class="result-card reveal">
+                <div class="result-metric" style="color: var(--accent-secondary);">3x</div>
+                <div class="result-label">Conversion Rate</div>
+            </div>
+            <div class="result-card reveal delay-100">
+                <div class="result-metric" style="color: var(--accent-primary);">+120%</div>
+                <div class="result-label">Avg. Session Time</div>
+            </div>
+            <div class="result-card reveal delay-200">
+                <div class="result-metric" style="color: var(--success);">-55%</div>
+                <div class="result-label">Bounce Rate</div>
+            </div>
+            <div class="result-card reveal delay-300">
+                <div class="result-metric" style="color: var(--accent-secondary);">$2.4M</div>
+                <div class="result-label">Q1 Online Revenue</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIAL ===== -->
+    <section class="container cs-section" style="padding-top: 0;">
+        <div class="testimonial reveal">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-quote">
+                They understood that luxury e-commerce isn't about adding to cart — it's about falling in love before
+                clicking buy. Our online store finally feels like our brand.
+            </p>
+            <div class="testimonial-author">Isabella Rossi</div>
+            <div class="testimonial-role">Creative Director, Velvet & Void</div>
+        </div>
+    </section>
+
+    <!-- ===== NEXT PROJECT ===== -->
+    <section class="container next-project">
+        <div class="cs-section-header reveal">
+            <span class="cs-section-line"></span>
+            <span class="cs-section-label">Next Project</span>
+        </div>
+        <a href="case-study-nexus.html" class="next-project-link reveal delay-100">
+            <div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">03 / SaaS</div>
+                <h2 style="font-size: 2.5rem; font-weight: 700;">Nexus Protocol</h2>
+            </div>
+            <span class="next-arrow">→</span>
+        </a>
+    </section>
+
+    <div id="footer-inject"></div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<header class="container">
+    <nav class="flex justify-between items-center" style="padding: 2rem 0;">
+        <!-- Logo -->
+        <a href="index.html" class="logo" style="z-index: 1000;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 0L40 40H0L20 0Z" fill="#6366F1" style="mix-blend-mode: screen;" />
+                <path d="M20 10L30 30H10L20 10Z" fill="#0B0E14" />
+            </svg>
+        </a>
+
+        <!-- Desktop Menu -->
+        <ul class="flex gap-md desktop-only" style="list-style: none;">
+            <li><a href="studio.html" class="mono">Studio</a></li>
+            <li><a href="work.html" class="mono">Work</a></li>
+            <li><a href="services.html" class="mono">Services</a></li>
+            <li><a href="insights.html" class="mono">Insights</a></li>
+            <li><a href="lab.html" class="mono">Lab</a></li>
+        </ul>
+
+        <!-- Action -->
+        <div class="flex items-center gap-sm desktop-only">
+            <a href="portal.html" class="mono" style="opacity: 0.7; font-size: 0.75rem;">Client Portal</a>
+            <a href="contact.html" class="btn-primary">Start Project</a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="menu-toggle" class="mobile-only" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav" class="mobile-nav">
+        <div class="container" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+            <div class="mobile-nav-inner flex-col gap-lg">
+                <ul class="flex-col gap-md" style="list-style: none;">
+                    <li><a href="studio.html" class="mobile-link"><span class="nav-num">01</span> Studio</a></li>
+                    <li><a href="work.html" class="mobile-link"><span class="nav-num">02</span> Work</a></li>
+                    <li><a href="services.html" class="mobile-link"><span class="nav-num">03</span> Services</a></li>
+                    <li><a href="insights.html" class="mobile-link"><span class="nav-num">04</span> Insights</a></li>
+                    <li><a href="lab.html" class="mobile-link"><span class="nav-num">05</span> Lab</a></li>
+                </ul>
+                <div class="flex-col items-start gap-md mt-8"
+                    style="padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <a href="portal.html" class="mono" style="font-size: 1rem; opacity: 0.8;">Client Portal</a>
+                    <a href="contact.html" class="btn-primary" style="width: 100%; justify-content: center;">Start
+                        Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

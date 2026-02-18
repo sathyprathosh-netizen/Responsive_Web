@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Studio | Power Trio</title>
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 4px solid var(--bg-primary);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .culture-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .culture-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 1024px) {
+            .philosophy-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+                left: 0 !important;
+            }
+
+            .timeline-dot {
+                left: 20px !important;
+                right: auto !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            h1,
+            h2 {
+                text-align: center;
+            }
+
+            .container.section-padding.pb-0 p {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .culture-card {
+                text-align: center;
+            }
+
+            .glass-panel {
+                padding: 2rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-inject"></div>
+
+    <!-- Hero -->
+    <section class="container section-padding pb-0">
+        <h1 class="animate-slide-up">Origin Code</h1>
+        <p class="animate-slide-up delay-100" style="max-width: 600px; margin-top: 1rem;">
+            Three distinct minds. One unified vision. We forged this studio in the fires of late-night deployments and
+            caffeine-fueled debates.
+        </p>
+    </section>
+
+    <!-- Culture -->
+    <section class="container section-padding">
+        <h2 class="reveal">Our Philosophy</h2>
+        <div class="philosophy-grid">
+            <div class="culture-card reveal delay-100">
+                <h3 style="color: var(--accent-secondary);">Relentless Polish</h3>
+                <p>We don't stop at "good enough". We pixel-peep until our eyes bleed, ensuring every interaction feels
+                    magical.</p>
+            </div>
+            <div class="culture-card reveal delay-200">
+                <h3 style="color: var(--success);">Code as Art</h3>
+                <p>Clean architecture is our religion. We write self-documenting, performant code that scales
+                    effortlessly.</p>
+            </div>
+            <div class="culture-card reveal delay-300">
+                <h3 style="color: var(--accent-primary);">Radical Honesty</h3>
+                <p>No corporate fluff. We tell you what you need to hear, not just what you want to hear, to build the
+                    best product.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="container section-padding" style="background: rgba(255,255,255,0.01);">
+        <h2 class="text-center reveal" style="text-align: center; margin-bottom: 4rem;">The Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="mono" style="color: var(--accent-secondary);">2023 - The Meeting</div>
+                <h3>Collision Course</h3>
+                <p>The three of us met at a hackathon. We built a winning prototype in 24 hours and realized our
+                    combined momentum was unstoppable.</p>
+            </div>
+            <div class="timeline-item reveal delay-100">
+                <div class="timeline-dot"></div>
+                <div class="mono" style="color: var(--accent-secondary);">2024 - The Foundation</div>
+                <h3>Garage Days</h3>
+                <p>Operating out of a literal garage, we took on our first 5 clients. We over-delivered on every single
+                    one.</p>
+            </div>
+            <div class="timeline-item reveal delay-200">
+                <div class="timeline-dot"></div>
+                <div class="mono" style="color: var(--accent-secondary);">2025 - The Scale</div>
+                <h3>Global Reach</h3>
+                <p>We expanded our operations, working with clients in 3 continents. Our team remained small, but our
+                    impact grew massive.</p>
+            </div>
+            <div class="timeline-item reveal delay-300">
+                <div class="timeline-dot"></div>
+                <div class="mono" style="color: var(--accent-secondary);">2026 - Present</div>
+                <h3>Dominance</h3>
+                <p>Now, we are the standard for high-performance web experiences. The Power Trio is fully operational.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location / Newsletter -->
+    <section class="container section-padding">
+        <div class="glass-panel" style="padding: 4rem; text-align: center;">
+            <h2 class="reveal">Visit HQ</h2>
+            <p class="reveal delay-100">123 Innovation Blvd, Tech District, Cyber City</p>
+
+            <div style="margin-top: 3rem; max-width: 400px; margin-left: auto; margin-right: auto;"
+                class="reveal delay-200">
+                <h4 style="margin-bottom: 1rem;">Join the Inner Circle</h4>
+                <div class="flex gap-sm">
+                    <input type="email" placeholder="Enter your email"
+                        style="width: 100%; padding: 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white;">
+                    <button class="btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-inject"></div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

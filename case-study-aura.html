@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Studio | Case Study — Power Trio</title>
+    <meta name="description" content="A 360° brand identity transformation for a creative agency.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <style>
+        .cs-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 5rem
+        }
+
+        .cs-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0
+        }
+
+        .cs-hero-bg svg {
+            width: 100%;
+            height: 100%
+        }
+
+        .cs-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-primary) 15%, rgba(11, 14, 20, .4) 60%, rgba(11, 14, 20, .8) 100%);
+            z-index: 1
+        }
+
+        .cs-hero-content {
+            position: relative;
+            z-index: 2
+        }
+
+        .cs-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -.03em;
+            margin-bottom: 1rem
+        }
+
+        .cs-hero-sub {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 550px;
+            line-height: 1.6
+        }
+
+        .cs-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            border-bottom: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .cs-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: .25rem
+        }
+
+        .cs-meta-label {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--text-secondary)
+        }
+
+        .cs-meta-value {
+            font-weight: 600;
+            font-size: 1rem
+        }
+
+        .cs-section {
+            padding: 5rem 0
+        }
+
+        .cs-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .cs-section-line {
+            width: 40px;
+            height: 2px;
+            background: #EC4899
+        }
+
+        .cs-section-label {
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            color: #EC4899;
+            font-weight: 600
+        }
+
+        .cs-body-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 700px
+        }
+
+        .cs-visual {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .05);
+            margin: 3rem 0
+        }
+
+        .cs-visual svg {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem
+        }
+
+        .process-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #EC4899, transparent);
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .process-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(236, 72, 153, .2);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, .4)
+        }
+
+        .process-card:hover::before {
+            opacity: 1
+        }
+
+        .process-num {
+            font-family: 'Inter Tight', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, .04);
+            line-height: 1;
+            margin-bottom: 1rem
+        }
+
+        .process-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: .75rem
+        }
+
+        .process-card p {
+            font-size: .9rem;
+            color: var(--text-secondary);
+            line-height: 1.6
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem
+        }
+
+        .result-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, .05);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition-smooth)
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, .4)
+        }
+
+        .result-metric {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Inter Tight', sans-serif;
+            line-height: 1;
+            margin-bottom: .5rem
+        }
+
+        .result-label {
+            font-size: .875rem;
+            color: var(--text-secondary)
+        }
+
+        .testimonial {
+            background: linear-gradient(135deg, rgba(236, 72, 153, .08), rgba(236, 72, 153, .02));
+            border: 1px solid rgba(236, 72, 153, .12);
+            border-radius: 1.5rem;
+            padding: 3.5rem;
+            position: relative
+        }
+
+        .testimonial-quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem
+        }
+
+        .testimonial-author {
+            font-weight: 600
+        }
+
+        .testimonial-role {
+            font-size: .875rem;
+            color: var(--text-secondary)
+        }
+
+        .quote-mark {
+            font-size: 5rem;
+            color: #EC4899;
+            line-height: 1;
+            opacity: .3;
+            font-family: Georgia, serif;
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem
+        }
+
+        .next-project {
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            padding: 5rem 0
+        }
+
+        .next-project-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 1.25rem;
+            transition: var(--transition-smooth);
+            text-decoration: none
+        }
+
+        .next-project-link:hover {
+            border-color: rgba(236, 72, 153, .3);
+            background: rgba(255, 255, 255, .02);
+            transform: translateX(8px)
+        }
+
+        .next-arrow {
+            font-size: 2rem;
+            color: #EC4899;
+            transition: transform .3s
+        }
+
+        .next-project-link:hover .next-arrow {
+            transform: translateX(8px)
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0
+        }
+
+        .brand-item {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .05)
+        }
+
+        .brand-item svg {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+
+        @media (max-width: 1024px) {
+            .cs-meta {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cs-hero {
+                min-height: 50vh;
+                padding-bottom: 3rem;
+                text-align: center
+            }
+
+            .cs-hero-content .flex {
+                justify-content: center
+            }
+
+            .cs-hero-sub {
+                margin: 0 auto
+            }
+
+            .cs-meta {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem 0;
+                text-align: center
+            }
+
+            .cs-section-header {
+                flex-direction: column;
+                text-align: center
+            }
+
+            .cs-body-text,
+            .cs-section h2 {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr
+            }
+
+            .process-card {
+                text-align: center
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr
+            }
+
+            .testimonial {
+                padding: 2rem 1.5rem;
+                text-align: center
+            }
+
+            .quote-mark {
+                font-size: 3rem;
+                top: 1rem;
+                left: 50%;
+                transform: translateX(-50%)
+            }
+
+            .next-project-link {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem
+            }
+
+            .brand-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="cs-hero">
+        <div class="cs-hero-bg">
+            <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="1080" fill="#100E18" />
+                <circle cx="700" cy="500" r="250" fill="none" stroke="rgba(236,72,153,.06)" stroke-width="1" />
+                <circle cx="700" cy="500" r="180" fill="none" stroke="rgba(236,72,153,.04)" stroke-width="1" />
+                <circle cx="700" cy="500" r="100" fill="rgba(236,72,153,.03)" />
+                <circle cx="1200" cy="500" r="250" fill="none" stroke="rgba(99,102,241,.06)" stroke-width="1" />
+                <circle cx="1200" cy="500" r="180" fill="none" stroke="rgba(99,102,241,.04)" stroke-width="1" />
+                <circle cx="1200" cy="500" r="100" fill="rgba(99,102,241,.03)" />
+                <rect x="500" y="780" width="300" height="20" rx="10" fill="rgba(236,72,153,.1)" />
+                <rect x="850" y="780" width="200" height="20" rx="10" fill="rgba(99,102,241,.08)" />
+                <rect x="500" y="820" width="900" height="12" rx="6" fill="rgba(255,255,255,.02)" />
+            </svg>
+        </div>
+        <div class="cs-hero-overlay"></div>
+        <div class="container cs-hero-content">
+            <div class="flex items-center gap-sm mb-4 animate-fade-in">
+                <span class="badge"
+                    style="background:rgba(236,72,153,.15);color:#EC4899;border-color:rgba(236,72,153,.3);">Branding</span>
+                <span class="mono text-sm" style="color:var(--text-secondary);">5 Min Read</span>
+            </div>
+            <h1 class="animate-slide-up">Aura Studio</h1>
+            <p class="cs-hero-sub animate-slide-up delay-100">A complete brand identity overhaul for a creative agency
+                ready to play in bigger arenas.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="cs-meta reveal">
+            <div class="cs-meta-item"><span class="cs-meta-label">Client</span><span class="cs-meta-value">Aura
+                    Studio</span></div>
+            <div class="cs-meta-item"><span class="cs-meta-label">Timeline</span><span class="cs-meta-value">2
+                    Months</span></div>
+            <div class="cs-meta-item"><span class="cs-meta-label">Role</span><span class="cs-meta-value">Brand,
+                    Identity, Web</span></div>
+            <div class="cs-meta-item"><span class="cs-meta-label">Deliverables</span><span class="cs-meta-value">Logo,
+                    Guidelines, Website</span></div>
+        </div>
+    </section>
+
+    <section class="container cs-section">
+        <div class="cs-section-header reveal"><span class="cs-section-line"></span><span class="cs-section-label">The
+                Challenge</span></div>
+        <h2 style="font-size:2rem;font-weight:700;margin-bottom:1.5rem;max-width:600px" class="reveal delay-100">
+            Talented creatives trapped in a forgettable brand.</h2>
+        <p class="cs-body-text reveal delay-200">Aura Studio had exceptional work but their brand identity screamed
+            "2015 freelancer." They were losing enterprise proposals to agencies half as talented but twice as polished.
+            We needed a visual system that matched the quality of their output.</p>
+        <div class="brand-grid reveal">
+            <div class="brand-item">
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="300" fill="#100E18" />
+                    <text x="200" y="130" fill="rgba(236,72,153,.6)" font-family="sans-serif" font-size="48"
+                        font-weight="800" text-anchor="middle">AURA</text>
+                    <text x="200" y="170" fill="rgba(255,255,255,.15)" font-family="monospace" font-size="12"
+                        text-anchor="middle" letter-spacing="8">S T U D I O</text>
+                    <circle cx="200" cy="230" r="20" fill="none" stroke="rgba(236,72,153,.2)" stroke-width="1" />
+                    <circle cx="200" cy="230" r="8" fill="rgba(236,72,153,.15)" />
+                </svg>
+            </div>
+            <div class="brand-item">
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="300" fill="#100E18" />
+                    <rect x="40" y="40" width="70" height="70" rx="12" fill="#EC4899" />
+                    <rect x="125" y="40" width="70" height="70" rx="12" fill="#6366F1" />
+                    <rect x="210" y="40" width="70" height="70" rx="12" fill="#F8FAFC" />
+                    <rect x="295" y="40" width="70" height="70" rx="12" fill="#0B0E14" stroke="rgba(255,255,255,.1)"
+                        stroke-width="1" />
+                    <rect x="40" y="140" width="325" height="8" rx="4" fill="rgba(255,255,255,.06)" />
+                    <rect x="40" y="165" width="250" height="8" rx="4" fill="rgba(255,255,255,.04)" />
+                    <rect x="40" y="200" width="140" height="36" rx="8" fill="rgba(236,72,153,.15)"
+                        stroke="rgba(236,72,153,.3)" stroke-width="1" />
+                    <rect x="200" y="200" width="140" height="36" rx="8" fill="rgba(99,102,241,.1)"
+                        stroke="rgba(99,102,241,.2)" stroke-width="1" />
+                </svg>
+            </div>
+            <div class="brand-item">
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="300" fill="#100E18" />
+                    <rect x="60" y="50" width="280" height="170" rx="10" fill="rgba(255,255,255,.03)"
+                        stroke="rgba(236,72,153,.1)" stroke-width="1" />
+                    <rect x="85" y="80" width="100" height="10" rx="5" fill="rgba(236,72,153,.3)" />
+                    <rect x="85" y="105" width="160" height="6" rx="3" fill="rgba(255,255,255,.06)" />
+                    <rect x="85" y="125" width="120" height="6" rx="3" fill="rgba(255,255,255,.04)" />
+                    <rect x="85" y="170" width="80" height="6" rx="3" fill="rgba(236,72,153,.15)" />
+                    <rect x="85" y="185" width="140" height="6" rx="3" fill="rgba(255,255,255,.04)" />
+                    <circle cx="300" cy="100" r="20" fill="rgba(236,72,153,.1)" stroke="rgba(236,72,153,.2)"
+                        stroke-width="1" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="container cs-section" style="padding-top:0">
+        <div class="cs-section-header reveal"><span class="cs-section-line"></span><span class="cs-section-label">Our
+                Process</span></div>
+        <h2 style="font-size:2rem;font-weight:700;margin-bottom:3rem" class="reveal delay-100">From invisible to
+            unforgettable.</h2>
+        <div class="process-grid">
+            <div class="process-card reveal delay-100">
+                <div class="process-num">01</div>
+                <h3>Brand Archaeology</h3>
+                <p>We dug deep into what made Aura unique — their processes, personality, and values. Stakeholder
+                    interviews and competitor positioning analysis.</p>
+            </div>
+            <div class="process-card reveal delay-200">
+                <div class="process-num">02</div>
+                <h3>Visual Identity</h3>
+                <p>Created a bold mark built around overlapping circles representing collaboration. Defined a premium
+                    color system and typography hierarchy.</p>
+            </div>
+            <div class="process-card reveal delay-300">
+                <div class="process-num">03</div>
+                <h3>System Rollout</h3>
+                <p>Delivered a 120-page brand guidelines document, redesigned their website, templated pitch decks, and
+                    unified all touchpoints in 8 weeks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container cs-section">
+        <div class="cs-section-header reveal"><span class="cs-section-line"></span><span class="cs-section-label">The
+                Results</span></div>
+        <h2 style="font-size:2rem;font-weight:700;margin-bottom:3rem" class="reveal delay-100">When perception matches
+            reality.</h2>
+        <div class="results-grid">
+            <div class="result-card reveal">
+                <div class="result-metric" style="color:#EC4899">3x</div>
+                <div class="result-label">Client Pipeline</div>
+            </div>
+            <div class="result-card reveal delay-100">
+                <div class="result-metric" style="color:var(--accent-primary)">+85%</div>
+                <div class="result-label">Proposal Win Rate</div>
+            </div>
+            <div class="result-card reveal delay-200">
+                <div class="result-metric" style="color:#EC4899">2x</div>
+                <div class="result-label">Avg. Project Value</div>
+            </div>
+            <div class="result-card reveal delay-300">
+                <div class="result-metric" style="color:var(--success)">FWA</div>
+                <div class="result-label">Site of the Day</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container cs-section" style="padding-top:0">
+        <div class="testimonial reveal">
+            <span class="quote-mark">"</span>
+            <p class="testimonial-quote">Power Trio didn't just redesign our brand — they repositioned our entire
+                business. We went from 'who are they?' to 'we need to work with them.' The numbers speak for themselves.
+            </p>
+            <div class="testimonial-author">Lena Park</div>
+            <div class="testimonial-role">Founder, Aura Studio</div>
+        </div>
+    </section>
+
+    <section class="container next-project">
+        <div class="cs-section-header reveal"><span class="cs-section-line"></span><span class="cs-section-label">Next
+                Project</span></div>
+        <a href="case-study-pulse.html" class="next-project-link reveal delay-100">
+            <div>
+                <div style="font-size:.8rem;color:var(--text-secondary);margin-bottom:.5rem">06 / Healthcare SaaS</div>
+                <h2 style="font-size:2.5rem;font-weight:700">PulseHealth</h2>
+            </div>
+            <span class="next-arrow">→</span>
+        </a>
+    </section>
+
+    <div id="footer-inject"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Death of Flat Design | Power Trio</title>
+    <meta name="description"
+        content="Why depth, glassmorphism, and texture are making a massive comeback in modern UI.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/typography.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/article.css">
+</head>
+
+<body>
+    <div id="header-inject"></div>
+
+    <section class="article-hero">
+        <div class="article-hero-bg">
+            <svg viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1920" height="800" fill="#0D0F18" />
+                <circle cx="700" cy="400" r="200" fill="rgba(99,102,241,.06)" />
+                <circle cx="1200" cy="350" r="150" fill="rgba(99,102,241,.04)" />
+            </svg>
+        </div>
+        <div class="article-hero-overlay"></div>
+        <div class="article-container article-hero-content">
+            <a href="insights.html" class="back-link">← Back to Insights</a>
+            <div class="article-chip-row">
+                <span class="chip chip-design">Design</span>
+                <span class="mono" style="opacity: 0.5;">September 12, 2026</span>
+            </div>
+            <h1>The Death of Flat Design</h1>
+            <div class="article-meta">
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M20 21a8 8 0 0 0-16 0" />
+                    </svg>
+                    <span>Power Trio Editorial</span>
+                </div>
+                <div class="article-meta-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>5 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="article-container">
+        <article class="article-body">
+            <p class="reveal">For nearly a decade, flat design ruled the web. Clean lines. Solid colors. Zero shadows.
+                It was a
+                necessary correction to the skeuomorphic excesses of the early 2010s. But we've corrected too far — and
+                the pendulum is swinging back.</p>
+
+            <h2 class="reveal">The Flat Design Paradox</h2>
+            <p class="reveal">Flat design was born from a genuine insight: digital interfaces work best when they're
+                clear and
+                functional. But taken to its extreme, flat design creates a different problem — everything looks the
+                same. Without visual hierarchy cues like depth, texture, and shadow, users struggle to distinguish
+                interactive elements from decorative ones.</p>
+            <p class="reveal">We've run A/B tests across dozens of projects and the data is clear: interfaces with
+                intentional depth
+                outperform purely flat alternatives by 15-25% in task completion rates.</p>
+
+            <blockquote class="reveal">
+                <p>Flat design solved the problem of visual noise. But it created a new problem: visual silence.</p>
+            </blockquote>
+
+            <h2 class="reveal">The Rise of Glassmorphism</h2>
+            <p class="reveal">Glassmorphism — the technique of using frosted glass effects on semi-transparent surfaces
+                — represents
+                the best of both worlds. It maintains the cleanliness of flat design while adding the depth cues users
+                need to navigate complex interfaces.</p>
+
+            <div class="article-visual reveal">
+                <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="760" height="380" fill="#0D0F18" />
+                    <!-- Abstract Background -->
+                    <circle cx="380" cy="190" r="150" fill="rgba(99,102,241,0.03)" />
+                    <!-- Glass Elements -->
+                    <g transform="translate(100, 60)">
+                        <rect width="240" height="260" rx="20" fill="rgba(255,255,255,0.02)"
+                            stroke="rgba(255,255,255,0.05)" />
+                        <rect x="25" y="25" width="80" height="8" rx="4" fill="rgba(255,255,255,0.05)" />
+                        <rect x="25" y="45" width="140" height="6" rx="3" fill="rgba(255,255,255,0.02)" />
+                        <text x="120" y="240" font-size="12" fill="rgba(255,255,255,0.2)"
+                            text-anchor="middle">STATIC</text>
+                    </g>
+                    <g transform="translate(420, 40)">
+                        <rect width="240" height="300" rx="30" fill="rgba(99,102,241,0.08)"
+                            stroke="rgba(99,102,241,0.2)" style="filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4))" />
+                        <rect x="30" y="30" width="100" height="10" rx="5" fill="rgba(99,102,241,0.4)" />
+                        <rect x="30" y="100" width="180" height="120" rx="15" fill="rgba(255,255,255,0.05)"
+                            stroke="rgba(255,255,255,0.1)" />
+                        <text x="120" y="270" font-size="12" fill="var(--accent-primary)"
+                            text-anchor="middle">DIMENSIONAL</text>
+                    </g>
+                </svg>
+            </div>
+
+            <p>Key principles for effective glassmorphism:</p>
+            <ul>
+                <li><strong>Subtle blur:</strong> backdrop-filter with 8-16px blur — never so strong it obscures content
+                </li>
+                <li><strong>Low-opacity backgrounds:</strong> 4-10% white or brand color keeps cards readable</li>
+                <li><strong>Fine borders:</strong> 1px borders at 6-15% opacity define edges without feeling heavy</li>
+                <li><strong>Layered depth:</strong> Multiple glass layers create a natural z-axis hierarchy</li>
+            </ul>
+
+            <h2>Texture as Personality</h2>
+            <p>The most exciting trend isn't any single technique — it's the return of personality. Grain, noise,
+                gradient mesh, and organic shapes give interfaces a warmth that flat design systematically removed.</p>
+            <p>We're not going back to skeuomorphism. We're going forward to a new era where digital surfaces feel
+                tactile, layered, and alive. The tools have finally caught up to the vision.</p>
+
+            <h2>What This Means for Your Projects</h2>
+            <p>Start small. Add a subtle shadow to your primary card component. Introduce a glass effect on your
+                navigation bar. Layer a fine grain texture over your hero sections. These small changes compound into
+                interfaces that feel premium and modern without sacrificing usability.</p>
+
+            <blockquote>
+                <p>The best interfaces don't choose between beauty and function. They use depth as a functional tool.
+                </p>
+            </blockquote>
+
+            <div class="article-tags">
+                <span class="tag">Glassmorphism</span>
+                <span class="tag">UI Design</span>
+                <span class="tag">Visual Trends</span>
+                <span class="tag">Depth</span>
+                <span class="tag">CSS</span>
+            </div>
+
+            <nav class="article-nav">
+                <a href="insight-design-systems.html">
+                    <div class="nav-label">← Previous</div>
+                    <div class="nav-title">Building Design Systems</div>
+                </a>
+                <a href="insight-60fps-animations.html" style="text-align:right">
+                    <div class="nav-label">Next →</div>
+                    <div class="nav-title">60fps Animations on Mobile</div>
+                </a>
+            </nav>
+        </article>
+    </div>
+
+    <div id="footer-inject"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>
